@@ -11,8 +11,8 @@
 	<groupId>com.example</groupId>
 	<artifactId>inventory</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>inventory</name>
-	<description>Sakila Movies Inventory</description>
+	<name>catalogo</name>
+	<description>Catalogo Sakila</description>
 	<url/>
 	<licenses>
 		<license/>
