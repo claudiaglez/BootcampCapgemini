@@ -13,6 +13,7 @@ import com.example.ioc.Configuracion;
 import com.example.ioc.Rango;
 import com.example.ioc.Repositorio;
 import com.example.ioc.Servicio;
+import com.example.util.Calculadora;
 
 
 
@@ -46,6 +47,10 @@ public class DemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.err.println("Aplicacion arrancada");
+		ejemplosPruebas();
+	}
+	
+	private void ejemplosIOC() {
 		//Servicio srv = new Servicio(new Repositorio(new Configuracion()));
 		//AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
 
@@ -53,6 +58,12 @@ public class DemoApplication implements CommandLineRunner {
 //		repo.guardar();
 		repo1.guardar();
 		repo2.guardar();
+		System.err.println("Valor: " + valor);
+		System.err.println("Rango: " + rango);
+	}
+	private void ejemplosPruebas() {
+		var calc = new Calculadora();
+		System.err.println("Suma: " + calc.suma(2, 3));
 	}
 	
 //	@Bean
