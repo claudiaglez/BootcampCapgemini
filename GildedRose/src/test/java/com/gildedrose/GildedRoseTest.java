@@ -43,16 +43,17 @@ class GildedRoseTest {
         assertEquals(expectedQuality, app.items[0].quality, "Quality");
     }
     
-    @Test
+    @ParameterizedTest
+	@CsvSource({"'Sulfuras, Hand of Ragnaros',0,80,0,80"})
     @DisplayName("Sulfuras")
-    void testSulfuras() {
-        Item[] items = new Item[] { new Item("Sulfuras, Hand of Ragnaros", 0, 80) };
+    void testSulfuras(String name, int sellIn, int quality, int expectedSellIn, int expectedQuality) {
+        Item[] items = new Item[] { new Item(name, sellIn, quality) };
         GildedRose app = new GildedRose(items);
 
         app.updateQuality();
  
-        assertEquals(0, app.items[0].sellIn, "SellIn");
-        assertEquals(80, app.items[0].quality, "Quality");
+        assertEquals(expectedSellIn, app.items[0].sellIn, "SellIn");
+        assertEquals(expectedQuality, app.items[0].quality, "Quality");
     }
     
     @Test
