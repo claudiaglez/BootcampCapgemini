@@ -30,7 +30,7 @@ class GildedRoseTest {
         assertEquals(0, app.items[0].quality, "Quality");
     }
     
-    @ParameterizedTest
+    @ParameterizedTest(name = "Test para {0} con sellIn={1} quality={2} expected sellIn={3} y expected quality={4}")
 	@CsvSource({"Aged Brie,0,0,-1,2", "Aged Brie,2,0,1,1"})
     @DisplayName("Aged Brie")
     void testAgedBrie(String name, int sellIn, int quality, int expectedSellIn, int expectedQuality) {
@@ -43,7 +43,7 @@ class GildedRoseTest {
         assertEquals(expectedQuality, app.items[0].quality, "Quality");
     }
     
-    @ParameterizedTest
+    @ParameterizedTest(name = "Test para {0} con sellIn={1} quality={2} expected sellIn={3} y expected quality={4}")
 	@CsvSource({"'Sulfuras, Hand of Ragnaros',0,80,0,80"})
     @DisplayName("Sulfuras")
     void testSulfuras(String name, int sellIn, int quality, int expectedSellIn, int expectedQuality) {
@@ -56,40 +56,20 @@ class GildedRoseTest {
         assertEquals(expectedQuality, app.items[0].quality, "Quality");
     }
     
-    @Test
-    @DisplayName("Backstage Passes Expired")
-    void testBackstagePasses() {
-        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 0, 0) };
+    @ParameterizedTest (name = "Test para {0} con sellIn={1} quality={2} expected sellIn={3} y expected quality={4}")
+	@CsvSource({"'Backstage passes to a TAFKAL80ETC concert',0,0,-1,0",
+		"'Backstage passes to a TAFKAL80ETC concert',7,0,6,2",
+		"'Backstage passes to a TAFKAL80ETC concert',2,0,1,3"	
+		})
+    @DisplayName("Backstage Passes")
+    void testBackstageExpired(String name, int sellIn, int quality, int expectedSellIn, int expectedQuality) {
+        Item[] items = new Item[] { new Item(name, sellIn, quality) };
         GildedRose app = new GildedRose(items);
 
         app.updateQuality();
  
-        assertEquals(-1, app.items[0].sellIn, "SellIn");
-        assertEquals(0, app.items[0].quality, "Quality");
-    }
-    
-    @Test
-    @DisplayName("Backstage Passes Day 7")
-    void testBackstagePassesDay7() {
-        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 7, 0) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
- 
-        assertEquals(6, app.items[0].sellIn, "SellIn");
-        assertEquals(2, app.items[0].quality, "Quality");
-    }
-    
-    @Test
-    @DisplayName("Backstage Passes Day 2")
-    void testBackstagePassesDay2() {
-        Item[] items = new Item[] { new Item("Backstage passes to a TAFKAL80ETC concert", 2, 0) };
-        GildedRose app = new GildedRose(items);
-
-        app.updateQuality();
- 
-        assertEquals(1, app.items[0].sellIn, "SellIn");
-        assertEquals(3, app.items[0].quality, "Quality");
+        assertEquals(expectedSellIn, app.items[0].sellIn, "SellIn");
+        assertEquals(expectedQuality, app.items[0].quality, "Quality");
     }
     
     @Test
