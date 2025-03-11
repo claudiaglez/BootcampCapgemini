@@ -72,16 +72,17 @@ class GildedRoseTest {
         assertEquals(expectedQuality, app.items[0].quality, "Quality");
     }
     
-    @Test
+    @ParameterizedTest (name = "Test para {0} con sellIn={1} quality={2} expected sellIn={3} y expected quality={4}")
+	@CsvSource({"'Conjured Mana Cake',0,0,-1,2"})
     @DisplayName("Conjured")
-    void testConjured() {
-        Item[] items = new Item[] { new Item("Conjured Mana Cake", 0, 0) };
+    void testConjured(String name, int sellIn, int quality, int expectedSellIn, int expectedQuality) {
+        Item[] items = new Item[] { new Item(name, sellIn, quality) };
         GildedRose app = new GildedRose(items);
 
         app.updateQuality();
  
-        assertEquals(-1, app.items[0].sellIn, "SellIn");
-        assertEquals(2, app.items[0].quality, "Quality");
+        assertEquals(expectedSellIn, app.items[0].sellIn, "SellIn");
+        assertEquals(expectedQuality, app.items[0].quality, "Quality");
     }
     
 

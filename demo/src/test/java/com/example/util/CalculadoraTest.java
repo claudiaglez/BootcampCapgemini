@@ -1,6 +1,7 @@
 package com.example.util;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
@@ -12,6 +13,7 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.Mockito;
 
 import com.example.test.util.Smoke;
 
@@ -136,6 +138,21 @@ class CalculadoraTest {
 					assertEquals("/ by zero", ex.getMessage());
 				}
 			}
+		}
+	}
+	@Nested
+	@DisplayName("Suplanta")
+	class Suplantaciones {
+		@Test
+		void suplanta() {
+			var calc = Mockito.mock(Calculadora.class);
+			when(calc.suma(2,2)).thenReturn(3).thenReturn(5);
+			
+			var actual = calc.suma(2,2);
+			assertEquals(3, actual);
+			assertEquals(5, calc.suma(2, 2));
+			assertEquals(5, calc.suma(2, 2));
+			
 		}
 	}
 }
