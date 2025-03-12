@@ -73,7 +73,8 @@ class GildedRoseTest {
     }
     
     @ParameterizedTest (name = "Test para {0} con sellIn={1} quality={2} expected sellIn={3} y expected quality={4}")
-	@CsvSource({"'Conjured Mana Cake',0,0,-1,2"})
+	@CsvSource({"'Conjured Mana Cake',3,6,2,4",
+		"'Conjured Mana Cake',2,4,1,2"})
     @DisplayName("Conjured")
     void testConjured(String name, int sellIn, int quality, int expectedSellIn, int expectedQuality) {
         Item[] items = new Item[] { new Item(name, sellIn, quality) };
