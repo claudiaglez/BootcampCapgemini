@@ -10,6 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 
 import com.example.domains.contracts.repositories.ActoresRepository;
+import com.example.domains.contracts.services.ActoresService;
 import com.example.domains.entities.Actor;
 import com.example.ioc.Configuracion;
 import com.example.ioc.Rango;
@@ -27,8 +28,11 @@ public class DemoApplication implements CommandLineRunner {
 		SpringApplication.run(DemoApplication.class, args);	
 	}
 	
+//	@Autowired
+//	private ActoresRepository dao;
+	
 	@Autowired
-	private ActoresRepository dao;
+	private ActoresService srv;
 	
 	private void ejemplosDatos() {
 //		var actor = new Actor(0, "Pepito", "Grillo");
@@ -49,8 +53,8 @@ public class DemoApplication implements CommandLineRunner {
 //		dao.findByActorIdGreaterThan(200).forEach(System.err::println);
 //		dao.findNovedadesJPQL(200).forEach(System.err::println);
 //		dao.findNovedadesSQL(200).forEach(System.err::println);
-		dao.findAll((root, query, builder) -> builder.lessThanOrEqualTo(root.get("actorId"), 5)).forEach(System.err::println);
-		
+//		dao.findAll((root, query, builder) -> builder.lessThanOrEqualTo(root.get("actorId"), 5)).forEach(System.err::println);
+		srv.getAll().forEach(System.err::println);
 		
 	}
 ////	@Autowired //(required = false)
