@@ -45,8 +45,11 @@ public class DemoApplication implements CommandLineRunner {
 //		dao.findAll().forEach(System.err::println);
 //		dao.deleteById(201);
 //		dao.findAll().forEach(System.err::println);
-		dao.findTop5ByFirstNameStartingWithOrderByLastNameDesc("P").forEach(System.err::println);
+//		dao.findTop5ByFirstNameStartingWithOrderByLastNameDesc("P").forEach(System.err::println);
 //		dao.findByActorIdGreaterThan(200).forEach(System.err::println);
+//		dao.findNovedadesJPQL(200).forEach(System.err::println);
+//		dao.findNovedadesSQL(200).forEach(System.err::println);
+		dao.findAll((root, query, builder) -> builder.lessThanOrEqualTo(root.get("actorId"), 5)).forEach(System.err::println);
 		
 		
 	}
