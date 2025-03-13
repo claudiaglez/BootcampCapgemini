@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
+import com.example.domains.contracts.repositories.ActoresRepository;
 import com.example.ioc.Configuracion;
 import com.example.ioc.Rango;
 import com.example.ioc.Repositorio;
@@ -22,21 +23,27 @@ import com.example.util.Calculadora;
 public class DemoApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
-		
+		SpringApplication.run(DemoApplication.class, args);	
 	}
 	
-//	@Autowired //(required = false)
-//	Servicio srv;
+	@Autowired
+	private ActoresRepository dao;
 	
-	@Autowired //(required = false)
-//	@Qualifier("verdad")
-	Repositorio repo1;
-	@Autowired //(required = false)
-//	@Qualifier("mentira")
-	Repositorio repo2;
+	private void ejemplosDatos() {
+		dao.findAll().forEach(System.err::println);
+		
+	}
+////	@Autowired //(required = false)
+////	Servicio srv;
+//	
 //	@Autowired //(required = false)
-//	Repositorio repo;
+////	@Qualifier("verdad")
+//	Repositorio repo1;
+//	@Autowired //(required = false)
+////	@Qualifier("mentira")
+//	Repositorio repo2;
+////	@Autowired //(required = false)
+////	Repositorio repo;
 	
 	@Value("${mivalor:valor por defecto}")
 	String valor;
@@ -47,24 +54,24 @@ public class DemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		System.err.println("Aplicacion arrancada");
-		ejemplosPruebas();
+		ejemplosDatos();
 	}
 	
-	private void ejemplosIOC() {
-		//Servicio srv = new Servicio(new Repositorio(new Configuracion()));
-		//AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
-
-//		srv.guardar();
-//		repo.guardar();
-		repo1.guardar();
-		repo2.guardar();
-		System.err.println("Valor: " + valor);
-		System.err.println("Rango: " + rango);
-	}
-	private void ejemplosPruebas() {
-		var calc = new Calculadora();
-		System.err.println("Suma: " + calc.suma(2, 3));
-	}
+//	private void ejemplosIOC() {
+//		//Servicio srv = new Servicio(new Repositorio(new Configuracion()));
+//		//AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+//
+////		srv.guardar();
+////		repo.guardar();
+//		repo1.guardar();
+//		repo2.guardar();
+//		System.err.println("Valor: " + valor);
+//		System.err.println("Rango: " + rango);
+//	}
+//	private void ejemplosPruebas() {
+//		var calc = new Calculadora();
+//		System.err.println("Suma: " + calc.suma(2, 3));
+//	}
 	
 //	@Bean
 //  	CommandLineRunner demo() {

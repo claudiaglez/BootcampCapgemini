@@ -135,5 +135,7 @@ public class Actor implements Serializable {
 	public void premioRecibido(String premio) {
 		
 	}
+	
+	
 
 }
