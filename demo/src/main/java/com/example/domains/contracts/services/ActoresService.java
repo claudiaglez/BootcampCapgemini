@@ -1,5 +1,9 @@
 package com.example.domains.contracts.services;
 
-public interface ActoresService {
+import com.example.domains.core.contracts.services.DomainService;
+import com.example.domains.entities.Actor;
+
+public interface ActoresService extends DomainService<Actor, Integer> {
+	void repartePremios();
 
 }
