@@ -10,6 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.annotation.ComponentScan;
 
 import com.example.domains.contracts.repositories.ActoresRepository;
+import com.example.domains.entities.Actor;
 import com.example.ioc.Configuracion;
 import com.example.ioc.Rango;
 import com.example.ioc.Repositorio;
@@ -30,7 +31,23 @@ public class DemoApplication implements CommandLineRunner {
 	private ActoresRepository dao;
 	
 	private void ejemplosDatos() {
-		dao.findAll().forEach(System.err::println);
+//		var actor = new Actor(0, "Pepito", "Grillo");
+//		dao.save(actor);
+//		var item = dao.findById(201);
+//		if(item.isPresent()) {
+//			var actor = item.get();
+//			actor.setFirstName("Pepito");
+//			actor.setLastName(actor.getLastName().toUpperCase());
+//			dao.save(actor);
+//		}else {
+//			System.err.println("No se ha encontrado el actor");
+//		}
+//		dao.findAll().forEach(System.err::println);
+//		dao.deleteById(201);
+//		dao.findAll().forEach(System.err::println);
+		dao.findTop5ByFirstNameStartingWithOrderByLastNameDesc("P").forEach(System.err::println);
+//		dao.findByActorIdGreaterThan(200).forEach(System.err::println);
+		
 		
 	}
 ////	@Autowired //(required = false)
