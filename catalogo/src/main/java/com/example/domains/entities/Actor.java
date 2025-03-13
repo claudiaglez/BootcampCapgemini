@@ -31,9 +31,6 @@ public class Actor implements Serializable {
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
 	private Timestamp lastUpdate;
 
-	//bi-directional many-to-one association to FilmActor
-	@OneToMany(mappedBy="actor", fetch = FetchType.EAGER)
-	private List<FilmActor> filmActors;
 
 	public Actor() {
 	}
@@ -82,27 +79,6 @@ public class Actor implements Serializable {
 		this.lastUpdate = lastUpdate;
 	}
 
-	public List<FilmActor> getFilmActors() {
-		return this.filmActors;
-	}
-
-	public void setFilmActors(List<FilmActor> filmActors) {
-		this.filmActors = filmActors;
-	}
-
-	public FilmActor addFilmActor(FilmActor filmActor) {
-		getFilmActors().add(filmActor);
-		filmActor.setActor(this);
-
-		return filmActor;
-	}
-
-	public FilmActor removeFilmActor(FilmActor filmActor) {
-		getFilmActors().remove(filmActor);
-		filmActor.setActor(null);
-
-		return filmActor;
-	}
 
 	@Override
 	public int hashCode() {

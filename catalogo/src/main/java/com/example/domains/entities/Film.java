@@ -58,17 +58,10 @@ public class Film implements Serializable {
 	@JoinColumn(name="original_language_id")
 	private Language languageVO;
 
-	//bi-directional many-to-one association to FilmActor
-	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<FilmActor> filmActors;
 
 	//bi-directional many-to-one association to FilmCategory
 	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<FilmCategory> filmCategories;
-
-	//bi-directional many-to-one association to Inventory
-	@OneToMany(mappedBy="film")
-	private List<Inventory> inventories;
 
 	public Film() {
 	}
@@ -169,28 +162,6 @@ public class Film implements Serializable {
 		this.languageVO = languageVO;
 	}
 
-	public List<FilmActor> getFilmActors() {
-		return this.filmActors;
-	}
-
-	public void setFilmActors(List<FilmActor> filmActors) {
-		this.filmActors = filmActors;
-	}
-
-	public FilmActor addFilmActor(FilmActor filmActor) {
-		getFilmActors().add(filmActor);
-		filmActor.setFilm(this);
-
-		return filmActor;
-	}
-
-	public FilmActor removeFilmActor(FilmActor filmActor) {
-		getFilmActors().remove(filmActor);
-		filmActor.setFilm(null);
-
-		return filmActor;
-	}
-
 	public List<FilmCategory> getFilmCategories() {
 		return this.filmCategories;
 	}
@@ -213,26 +184,5 @@ public class Film implements Serializable {
 		return filmCategory;
 	}
 
-	public List<Inventory> getInventories() {
-		return this.inventories;
-	}
-
-	public void setInventories(List<Inventory> inventories) {
-		this.inventories = inventories;
-	}
-
-	public Inventory addInventory(Inventory inventory) {
-		getInventories().add(inventory);
-		inventory.setFilm(this);
-
-		return inventory;
-	}
-
-	public Inventory removeInventory(Inventory inventory) {
-		getInventories().remove(inventory);
-		inventory.setFilm(null);
-
-		return inventory;
-	}
 
 }
