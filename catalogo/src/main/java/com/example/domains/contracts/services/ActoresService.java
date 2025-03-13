@@ -1,5 +1,16 @@
 package com.example.domains.contracts.services;
 
-public interface ActoresService {
+import java.util.List;
 
+import com.example.domains.core.contracts.services.DomainService;
+import com.example.domains.entities.Actor;
+
+public interface ActoresService extends DomainService<Actor, Integer> {
+	void repartePremios();
+	
+    List<Actor> obtenerActoresPorPrefijo(String prefijo);
+    List<Actor> obtenerActoresMayoresQue(int id);
+    List<Actor> obtenerActoresPorLetra(String letra);
+
+    
 }
