@@ -9,5 +9,4 @@ public interface LanguagesService extends DomainService<Language, Integer> {
 	List<Language> obtenerIdiomas();
 	List<Language> idiomasAcabanN(String letra);
 
-
 }
