@@ -64,11 +64,6 @@ public class ActoresServiceImpl implements ActoresService {
     }
 
     @Override
-    public void repartePremios() {
-    }
-
-
-    @Override
     public List<Actor> obtenerActoresPorPrefijo(String prefijo) {
         return actoresRepository.findByFirstNameStartingWith(prefijo);
     }
