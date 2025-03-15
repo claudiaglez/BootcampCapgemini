@@ -58,7 +58,13 @@ public class Film implements Serializable {
 	@JoinColumn(name="original_language_id")
 	private Language languageVO;
 
+	//bi-directional many-to-one association to FilmActor
+	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<FilmActor> filmActors;
 
+	//bi-directional many-to-one association to FilmCategory
+	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<FilmCategory> filmCategories;
 
 	public Film() {
 	}
@@ -157,6 +163,50 @@ public class Film implements Serializable {
 
 	public void setLanguageVO(Language languageVO) {
 		this.languageVO = languageVO;
+	}
+
+	public List<FilmActor> getFilmActors() {
+		return this.filmActors;
+	}
+
+	public void setFilmActors(List<FilmActor> filmActors) {
+		this.filmActors = filmActors;
+	}
+
+	public FilmActor addFilmActor(FilmActor filmActor) {
+		getFilmActors().add(filmActor);
+		filmActor.setFilm(this);
+
+		return filmActor;
+	}
+
+	public FilmActor removeFilmActor(FilmActor filmActor) {
+		getFilmActors().remove(filmActor);
+		filmActor.setFilm(null);
+
+		return filmActor;
+	}
+
+	public List<FilmCategory> getFilmCategories() {
+		return this.filmCategories;
+	}
+
+	public void setFilmCategories(List<FilmCategory> filmCategories) {
+		this.filmCategories = filmCategories;
+	}
+
+	public FilmCategory addFilmCategory(FilmCategory filmCategory) {
+		getFilmCategories().add(filmCategory);
+		filmCategory.setFilm(this);
+
+		return filmCategory;
+	}
+
+	public FilmCategory removeFilmCategory(FilmCategory filmCategory) {
+		getFilmCategories().remove(filmCategory);
+		filmCategory.setFilm(null);
+
+		return filmCategory;
 	}
 
 
