@@ -4,15 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.domains.contracts.repositories.FilmsRepository;
 import com.example.domains.contracts.services.FilmsService;
-import com.example.domains.entities.Actor;
 import com.example.domains.entities.Film;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
+@Service
 public class FilmsServiceImpl implements FilmsService {
 	@Autowired
 	private FilmsRepository filmsRepository;
@@ -67,6 +68,11 @@ public class FilmsServiceImpl implements FilmsService {
 	@Override
 	public List<Film> obtenerPeliculasPorFechaLanzamiento(Short fecha) {
 		return filmsRepository.findByReleaseYear(fecha);
+	}
+
+	@Override
+	public List<Film> obtenerPeliculasPorTitulo(String titulo) {
+		return filmsRepository.findByTitleContainingIgnoreCase(titulo);
 	}
 
 }

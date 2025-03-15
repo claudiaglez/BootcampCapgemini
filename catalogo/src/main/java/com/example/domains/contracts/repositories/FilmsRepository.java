@@ -11,5 +11,6 @@ import com.example.domains.entities.Film;
 @Repository
 public interface FilmsRepository extends JpaRepository<Film, Integer>, JpaSpecificationExecutor<Film> {
 	List<Film> findByReleaseYear(Short releaseYear);
+	List<Film> findByTitleContainingIgnoreCase(String title);
 
 }

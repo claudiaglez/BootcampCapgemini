@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.domains.contracts.services.ActoresService;
 import com.example.domains.contracts.services.CategoriesService;
+import com.example.domains.contracts.services.FilmsService;
 import com.example.domains.contracts.services.LanguagesService;
 import com.example.domains.entities.Actor;
 import com.example.domains.entities.Category;
+import com.example.domains.entities.Film;
 import com.example.domains.entities.Language;
 
 @SpringBootApplication
@@ -28,6 +30,9 @@ public class CatalogoApplication implements CommandLineRunner {
     
     @Autowired
     private CategoriesService categoriesService;
+    
+    @Autowired
+    private FilmsService filmsService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -63,6 +68,17 @@ public class CatalogoApplication implements CommandLineRunner {
         System.out.println("\nCategorías con ID mayor a 3:");
         List<Category> categoriasMayoresQue = categoriesService.obtenerCategoriasMayoresQue(3);
         categoriasMayoresQue.forEach(category -> System.out.println(category.getName()));
+        
+        System.out.println("\nPelículas ordenadas por fecha de lanzamiento:");
+        Short fechaLanzamiento = 2006;
+        List<Film> peliculasPorFecha = filmsService.obtenerPeliculasPorFechaLanzamiento(fechaLanzamiento);
+        peliculasPorFecha.forEach(film -> System.out.println(film.getTitle()));
+        
+        System.out.println("\nPelículas con 'Dinosaur' en el título:");
+        String palabra = "Dinosaur"; 
+        List<Film> peliculasFiltradasPorTitulo = filmsService.obtenerPeliculasPorTitulo(palabra);
+        peliculasFiltradasPorTitulo.forEach(film -> System.out.println(film.getTitle()));
+
     }
 
     public static void main(String[] args) {

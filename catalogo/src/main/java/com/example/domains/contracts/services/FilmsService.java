@@ -8,5 +8,6 @@ import com.example.domains.entities.Film;
 public interface FilmsService extends DomainService<Film, Integer> {
 	
 	List<Film> obtenerPeliculasPorFechaLanzamiento(Short fecha);
+	List<Film> obtenerPeliculasPorTitulo(String titulo);
 
 }
