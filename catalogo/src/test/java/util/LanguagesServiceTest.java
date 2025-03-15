@@ -132,13 +132,18 @@ public class LanguagesServiceTest {
         verify(languagesRepository).findById(1);
     }
 
+    @Test
+    void testDeleteLanguage() throws InvalidDataException {
 
+        Language language = new Language();
+        language.setName("Spanish");
 
+        when(languagesRepository.existsById(1)).thenReturn(true);
 
-    
-    
-
-
+        languagesService.delete(language);
+        
+        verify(languagesRepository).delete(language);
+    }
 
 }
 
