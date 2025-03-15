@@ -13,6 +13,8 @@ import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
+import jakarta.validation.Valid;
+
 @Service
 public class FilmsServiceImpl implements FilmsService {
 	@Autowired
@@ -29,7 +31,7 @@ public class FilmsServiceImpl implements FilmsService {
 	}
 
     @Override
-    public Film add(Film item) throws DuplicateKeyException, InvalidDataException {
+    public Film add(@Valid Film item) throws DuplicateKeyException, InvalidDataException {
         if (item == null) {
             throw new InvalidDataException("La película no puede ser nula");
         }
@@ -40,7 +42,7 @@ public class FilmsServiceImpl implements FilmsService {
     }
 
     @Override
-    public Film modify(Film item) throws NotFoundException, InvalidDataException {
+    public Film modify(@Valid Film item) throws NotFoundException, InvalidDataException {
         if (item == null) {
             throw new InvalidDataException("La película no puede ser nula");
         }
@@ -52,7 +54,7 @@ public class FilmsServiceImpl implements FilmsService {
 
 
     @Override
-    public void delete(Film item) throws InvalidDataException {
+    public void delete(@Valid Film item) throws InvalidDataException {
         if (item == null) {
             throw new InvalidDataException("La película no puede ser nula");
         }
