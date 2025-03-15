@@ -13,6 +13,8 @@ import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
+import jakarta.validation.Valid;
+
 @Service
 public class ActoresServiceImpl implements ActoresService {
     @Autowired
@@ -29,7 +31,7 @@ public class ActoresServiceImpl implements ActoresService {
     }
 
     @Override
-    public Actor add(Actor item) throws DuplicateKeyException, InvalidDataException {
+    public Actor add(@Valid Actor item) throws DuplicateKeyException, InvalidDataException {
         if (item == null) {
             throw new InvalidDataException("El actor no puede ser nulo");
         }
@@ -40,7 +42,7 @@ public class ActoresServiceImpl implements ActoresService {
     }
 
     @Override
-    public Actor modify(Actor item) throws NotFoundException, InvalidDataException {
+    public Actor modify(@Valid Actor item) throws NotFoundException, InvalidDataException {
         if (item == null) {
             throw new InvalidDataException("El actor no puede ser nulo");
         }
@@ -53,7 +55,7 @@ public class ActoresServiceImpl implements ActoresService {
     @Override
     public void delete(Actor item) throws InvalidDataException {
         if (item == null) {
-            throw new InvalidDataException("El actor no puede ser nulo");
+            throw new InvalidDataException("El actor no existe");
         }
         actoresRepository.delete(item);
     }
