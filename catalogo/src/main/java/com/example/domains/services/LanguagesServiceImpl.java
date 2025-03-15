@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 
 import com.example.domains.contracts.repositories.LanguagesRepository;
 import com.example.domains.contracts.services.LanguagesService;
+import com.example.domains.entities.Category;
 import com.example.domains.entities.Language;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
+
+import jakarta.validation.Valid;
 
 @Service
 public class LanguagesServiceImpl implements LanguagesService {
@@ -30,31 +33,42 @@ public class LanguagesServiceImpl implements LanguagesService {
 
 	@Override
 	public Optional<Language> getOne(Integer id) {
-		// TODO Auto-generated method stub
-		return Optional.empty();
+		return languagesRepository.findById(id);
 	}
 
-	@Override
-	public Language add(Language item) throws DuplicateKeyException, InvalidDataException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	 @Override
+	    public Language add(@Valid Language item) throws DuplicateKeyException, InvalidDataException {
+	        if (item == null) {
+	            throw new InvalidDataException("El idioma no puede ser nulo");
+	        }
+	        if (languagesRepository.existsById(item.getLanguageId())) {
+	            throw new DuplicateKeyException("El idioma con este ID ya existe");
+	        }
+	        return languagesRepository.save(item);
+	    }
 
-	@Override
-	public Language modify(Language item) throws NotFoundException, InvalidDataException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	 @Override
+	    public Language modify(@Valid Language item) throws NotFoundException, InvalidDataException {
+	        if (item == null) {
+	            throw new InvalidDataException("El idioma no puede ser nulo");
+	        }
+	        if (!languagesRepository.findById(item.getLanguageId()).isPresent()) {
+	            throw new NotFoundException("Idioma no encontrado");
+	        }
+	        return languagesRepository.save(item);
+	    }
 
-	@Override
-	public void delete(Language item) throws InvalidDataException {
-		// TODO Auto-generated method stub
-		
-	}
+	 @Override
+	    public void delete(Language item) throws InvalidDataException {
+	        if (item == null) {
+	            throw new InvalidDataException("El idioma no puede ser nulo");
+	        }
+	        languagesRepository.delete(item);
+	    }
 
 	@Override
 	public void deleteById(Integer id) {
-		// TODO Auto-generated method stub
+		languagesRepository.deleteById(id);
 		
 	}
 
