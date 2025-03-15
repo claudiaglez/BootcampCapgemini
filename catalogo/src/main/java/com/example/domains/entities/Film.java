@@ -2,6 +2,12 @@ package com.example.domains.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
@@ -31,26 +37,35 @@ public class Film implements Serializable {
 	private int length;
 
 	@Column(length=1)
+	@Pattern(regexp = "^[G|PG|PG-13|R|NC-17]{1}$", message = "El rating debe ser uno de los valores: G, PG, PG-13, R, NC-17")
 	private String rating;
 
 	@Column(name="release_year")
+	@NotNull(message = "El año de lanzamiento no puede ser nulo")
 	private Short releaseYear;
 
 	@Column(name="rental_duration", nullable=false)
 	private byte rentalDuration;
 
 	@Column(name="rental_rate", nullable=false, precision=10, scale=2)
+	@NotNull(message = "La tarifa de alquiler no puede ser nula")
+	@DecimalMin(value = "0.01", message = "La tarifa de alquiler debe ser mayor que 0")
 	private BigDecimal rentalRate;
 
 	@Column(name="replacement_cost", nullable=false, precision=10, scale=2)
+	@NotNull(message = "El costo de reemplazo no puede ser nulo")
+	@DecimalMin(value = "0.01", message = "El costo de reemplazo debe ser mayor que 0")
 	private BigDecimal replacementCost;
 
 	@Column(nullable=false, length=128)
+	@NotEmpty(message = "El título de la película no puede estar vacío")
+	@Size(max = 128, message = "El título no puede exceder los 128 caracteres")
 	private String title;
 
 	//bi-directional many-to-one association to Language
 	@ManyToOne
 	@JoinColumn(name="language_id", nullable=false)
+	@NotNull(message = "El idioma no puede ser nulo")
 	private Language language;
 
 	//bi-directional many-to-one association to Language
