@@ -17,6 +17,7 @@ import com.example.domains.entities.Language;
 import com.example.domains.services.LanguagesServiceImpl;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
+import com.example.exceptions.NotFoundException;
 
 public class LanguagesServiceTest {
 
@@ -93,6 +94,45 @@ public class LanguagesServiceTest {
 
         verify(languagesRepository).findById(999);
     }
+    
+    @Test
+    void testModifyLanguage() throws NotFoundException, InvalidDataException {
+
+        Language existingLanguage = new Language();
+        existingLanguage.setLanguageId(1);  
+        existingLanguage.setName("Spanish");
+
+        Language modifiedLanguage = new Language();
+        modifiedLanguage.setLanguageId(1); 
+        modifiedLanguage.setName("English");
+
+        when(languagesRepository.findById(1)).thenReturn(Optional.of(existingLanguage));
+
+        when(languagesRepository.save(modifiedLanguage)).thenReturn(modifiedLanguage);
+
+        Language result = languagesService.modify(modifiedLanguage);
+
+        assertNotNull(result);
+        assertEquals("English", result.getName());
+
+    }
+
+    @Test
+    void testModifyLanguageNotFound() {
+        Language modifiedLanguage = new Language();
+        modifiedLanguage.setLanguageId(1); 
+        modifiedLanguage.setName("English");
+
+        when(languagesRepository.findById(1)).thenReturn(Optional.empty());
+
+        assertThrows(NotFoundException.class, () -> {
+            languagesService.modify(modifiedLanguage);
+        });
+
+        verify(languagesRepository).findById(1);
+    }
+
+
 
 
     
