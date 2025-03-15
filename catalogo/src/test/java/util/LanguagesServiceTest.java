@@ -83,6 +83,16 @@ public class LanguagesServiceTest {
         verify(languagesRepository).findById(1);
     }
 
+    @Test
+    void testGetOneLanguageNotFound() {
+        when(languagesRepository.findById(999)).thenReturn(Optional.empty());
+
+        Optional<Language> result = languagesService.getOne(999);
+
+        assertFalse(result.isPresent());
+
+        verify(languagesRepository).findById(999);
+    }
 
 
     
