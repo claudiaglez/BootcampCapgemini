@@ -10,8 +10,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.domains.contracts.services.ActoresService;
+import com.example.domains.contracts.services.CategoriesService;
 import com.example.domains.contracts.services.LanguagesService;
 import com.example.domains.entities.Actor;
+import com.example.domains.entities.Category;
 import com.example.domains.entities.Language;
 
 @SpringBootApplication
@@ -23,6 +25,9 @@ public class CatalogoApplication implements CommandLineRunner {
     
     @Autowired
     private LanguagesService languagesService;
+    
+    @Autowired
+    private CategoriesService categoriesService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -54,7 +59,10 @@ public class CatalogoApplication implements CommandLineRunner {
         } else {
             System.out.println("No se encontraron idiomas que terminen con 'n'.");
         }
-    
+        
+        System.out.println("\nCategorías con ID mayor a 3:");
+        List<Category> categoriasMayoresQue = categoriesService.obtenerCategoriasMayoresQue(3);
+        categoriasMayoresQue.forEach(category -> System.out.println(category.getName()));
     }
 
     public static void main(String[] args) {

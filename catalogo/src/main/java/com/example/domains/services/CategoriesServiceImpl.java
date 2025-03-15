@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.domains.contracts.repositories.ActoresRepository;
 import com.example.domains.contracts.repositories.CategoriesRepository;
@@ -14,6 +15,7 @@ import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
+@Service
 public class CategoriesServiceImpl implements CategoriesService {
 	
 	@Autowired
