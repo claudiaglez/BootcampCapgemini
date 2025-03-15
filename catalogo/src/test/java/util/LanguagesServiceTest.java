@@ -9,6 +9,7 @@ import org.mockito.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import com.example.domains.contracts.repositories.LanguagesRepository;
 import com.example.domains.contracts.services.LanguagesService;
@@ -66,6 +67,24 @@ public class LanguagesServiceTest {
         
         verify(languagesRepository).findAll();
     }
+    
+    @Test
+    void testGetOneLanguage() {
+        Language language = new Language();
+        language.setName("Spanish");
+        
+        when(languagesRepository.findById(1)).thenReturn(Optional.of(language));
+
+        Optional<Language> result = languagesService.getOne(1);
+
+        assertTrue(result.isPresent());
+        assertEquals(language, result.get());
+        
+        verify(languagesRepository).findById(1);
+    }
+
+
+
     
     
 
