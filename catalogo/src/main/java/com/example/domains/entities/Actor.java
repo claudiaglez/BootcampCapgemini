@@ -2,6 +2,9 @@ package com.example.domains.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Objects;
@@ -21,10 +24,14 @@ public class Actor implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="actor_id", unique=true, nullable=false)
 	private int actorId;
-
+	
+	@NotNull(message = "El primer nombre no puede ser nulo.")
+	@Size(min = 2, max = 45, message = "El primer nombre debe tener entre 2 y 45 caracteres.")
 	@Column(name="first_name", nullable=false, length=45)
 	private String firstName;
 
+	@NotNull(message = "El apellido no puede ser nulo.")
+    @Size(min = 2, max = 45, message = "El apellido debe tener entre 2 y 45 caracteres.")
 	@Column(name="last_name", nullable=false, length=45)
 	private String lastName;
 
