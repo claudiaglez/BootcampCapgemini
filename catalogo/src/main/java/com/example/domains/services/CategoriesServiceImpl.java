@@ -15,6 +15,8 @@ import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
+import jakarta.validation.Valid;
+
 @Service
 public class CategoriesServiceImpl implements CategoriesService {
 	
@@ -37,7 +39,7 @@ public class CategoriesServiceImpl implements CategoriesService {
 	}
 
     @Override
-    public Category add(Category item) throws DuplicateKeyException, InvalidDataException {
+    public Category add(@Valid Category item) throws DuplicateKeyException, InvalidDataException {
         if (item == null) {
             throw new InvalidDataException("La categoría no puede ser nula");
         }
@@ -48,7 +50,7 @@ public class CategoriesServiceImpl implements CategoriesService {
     }
 
     @Override
-    public Category modify(Category item) throws NotFoundException, InvalidDataException {
+    public Category modify(@Valid Category item) throws NotFoundException, InvalidDataException {
         if (item == null) {
             throw new InvalidDataException("La categoría no puede ser nula");
         }
