@@ -106,5 +106,41 @@ public class FilmsValidationTest {
 
         assertTrue(foundNotEmptyViolation);
     }
+    
+    @Test
+    public void testLongTitle() {
+        Film film = new Film();
+        film.setTitle("A very long title that exceeds the 128 character limit. " +
+                "This should be enough characters to exceed the limit and " +
+                "cause a validation error related to size.");
+        film.setRating("PG");
+        film.setReleaseYear((short) 2025); 
+        film.setRentalDuration((byte) 5); 
+        film.setRentalRate(new BigDecimal("1.99")); 
+        film.setReplacementCost(new BigDecimal("19.99")); 
+
+        Language englishLanguage = new Language();
+        englishLanguage.setLanguageId(1);  
+        englishLanguage.setName("English");  
+
+        film.setLanguage(englishLanguage);
+        film.setFilmId(1);
+
+        Set<ConstraintViolation<Film>> violations = validator.validate(film);
+
+        assertFalse(violations.isEmpty());
+        assertEquals(1, violations.size()); 
+
+        boolean foundSizeViolation = false;
+
+        for (ConstraintViolation<Film> violation : violations) {
+            if ("El título no puede exceder los 128 caracteres".equals(violation.getMessage())) {
+                foundSizeViolation = true;
+            }
+        }
+
+        assertTrue(foundSizeViolation);
+    }
+
 
 }
