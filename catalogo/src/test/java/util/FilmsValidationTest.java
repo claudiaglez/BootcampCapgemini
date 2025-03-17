@@ -205,6 +205,7 @@ public class FilmsValidationTest {
 
         fail("No se encontró el mensaje de validación para el año de lanzamiento nulo");
     }
+        
     
     @Test
     public void testRentalRateMinValue() {
@@ -295,6 +296,30 @@ public class FilmsValidationTest {
 
         fail("No se encontró el mensaje de validación para el idioma nulo");
     }
+    
+    @Test
+    public void testRentalRateNegativeValue() {
+        Film film = new Film();
+        film.setRentalRate(new BigDecimal("-1.00")); 
+        
+        film.setTitle("Test Movie");
+        film.setRating("PG");
+        film.setReleaseYear((short) 2025);
+        film.setRentalDuration((byte) 5); 
+        film.setReplacementCost(new BigDecimal("10.99")); 
+        
+        Language language = new Language();
+        language.setLanguageId(1);
+        language.setName("English");
+        film.setLanguage(language);
+        film.setFilmId(1);
+        
+        Set<ConstraintViolation<Film>> violations = validator.validate(film);
+        
+        assertFalse(violations.isEmpty());
+        assertEquals(1, violations.size());
+    }
+
     
 
 }
