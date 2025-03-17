@@ -44,7 +44,7 @@ public class CategoriesServiceTest {
     }
     
     @Test
-    public void testObtenerActoresMayoresQue() {
+    public void testObtenerCategoriasMayoresQue() {
         when(categoriesRepository.findByCategoryIdGreaterThan(1)).thenReturn(Arrays.asList(category2));
 
         List<Category> result = categoriesService.obtenerCategoriasMayoresQue(1);
