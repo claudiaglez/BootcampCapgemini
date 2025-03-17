@@ -72,6 +72,19 @@ public class CategoriesValidationTest {
         assertTrue(foundNotEmptyViolation);
         assertTrue(foundSizeViolation);
     }
+	
+	@Test
+    public void testSizeName() {
+        Category category = new Category();
+        category.setName("En"); 
+
+        Set<ConstraintViolation<Category>> violations = validator.validate(category);
+
+        assertFalse(violations.isEmpty());
+        assertEquals(1, violations.size()); 
+
+        assertEquals("El nombre de la categoría debe tener entre 3 y 25 caracteres", violations.iterator().next().getMessage());
+    }
 
 	
 
