@@ -59,6 +59,17 @@ public class ActoresValidationTest {
         assertEquals(1, violations.size());
         assertEquals("El nombre debe tener entre 2 y 45 caracteres.", violations.iterator().next().getMessage());
     }
+    
+    @Test
+    public void testFirstNameWithValidCharacters() {
+        Actor actor = new Actor();
+        actor.setFirstName("José Luis");
+        actor.setLastName("González");
+
+        Set<ConstraintViolation<Actor>> violations = validator.validate(actor);
+
+        assertTrue(violations.isEmpty());
+    }
 
 
 }
