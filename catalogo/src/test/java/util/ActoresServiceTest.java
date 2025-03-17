@@ -65,5 +65,18 @@ public class ActoresServiceTest {
 	        assertNotNull(result);
 	        assertEquals(0, result.size());
 	    }
+	    
+	    @Test
+	    public void testObtenerActoresMayoresQue() {
+	        when(actoresRepository.findByActorIdGreaterThan(1)).thenReturn(Arrays.asList(actor2));
+
+	        List<Actor> result = actoresService.obtenerActoresMayoresQue(1);
+
+	        assertNotNull(result);
+	        assertEquals(1, result.size()); 
+	        assertTrue(result.contains(actor2));
+
+	        verify(actoresRepository).findByActorIdGreaterThan(1);
+	    }
 
 }
