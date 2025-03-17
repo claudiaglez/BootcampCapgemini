@@ -206,6 +206,38 @@ public class FilmsValidationTest {
 
         fail("No se encontró el mensaje de validación para el año de lanzamiento nulo");
     }
+    
+    @Test
+    public void testRentalRateMinValue() {
+        Film film = new Film();
+        film.setRentalRate(new BigDecimal("0.00")); 
+        
+        film.setTitle("Test Movie");
+        film.setRating("PG");
+        film.setReleaseYear((short) 2025);
+        film.setRentalDuration((byte) 5); 
+        film.setReplacementCost(new BigDecimal("10.99")); 
+        
+        Language language = new Language();
+        language.setLanguageId(1);
+        language.setName("English");
+        film.setLanguage(language);
+        film.setFilmId(1);
+
+        Set<ConstraintViolation<Film>> violations = validator.validate(film);
+
+        assertFalse(violations.isEmpty());
+        assertEquals(1, violations.size());
+
+      
+        for (ConstraintViolation<Film> violation : violations) {
+            if ("La tarifa de alquiler debe ser mayor que 0".equals(violation.getMessage())) {
+                return; 
+            }
+        }
+
+        fail("No se encontró el mensaje de validación para la tarifa de alquiler");
+    }
 
 
 
