@@ -1,5 +1,6 @@
 package util;
 
+import static org.assertj.core.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -141,6 +142,39 @@ public class FilmsValidationTest {
 
         assertTrue(foundSizeViolation);
     }
+    
+    @Test
+    public void testRatingInvalid() {
+        Film film = new Film();
+        film.setRating("INVALID");
+
+        film.setTitle("Test Movie");
+        film.setReleaseYear((short) 2025);
+        film.setRentalDuration((byte) 5); 
+        film.setRentalRate(new BigDecimal("2.99"));
+        film.setReplacementCost(new BigDecimal("10.99")); 
+        
+        Language language = new Language();
+        language.setLanguageId(1);
+        language.setName("English");
+        film.setLanguage(language);
+
+        Set<ConstraintViolation<Film>> violations = validator.validate(film);
+
+        assertFalse(violations.isEmpty());
+        assertEquals(1, violations.size());
+
+        boolean found = false;
+        for (ConstraintViolation<Film> violation : violations) {
+            if ("El rating debe ser uno de los valores: G, PG, PG-13, R, NC-17".equals(violation.getMessage())) {
+                found = true;
+                break;
+            }
+        }
+
+        assertTrue(found, "No se encontró el mensaje de validación para el rating inválido");
+    }
+
 
 
 }
