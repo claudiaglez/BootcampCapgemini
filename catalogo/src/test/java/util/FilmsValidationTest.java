@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.CatalogoApplication;
-import com.example.domains.entities.Category;
 import com.example.domains.entities.Film;
 import com.example.domains.entities.Language;
 
@@ -216,7 +215,6 @@ public class FilmsValidationTest {
         film.setRating("PG");
         film.setReleaseYear((short) 2025);
         film.setRentalDuration((byte) 5); 
-        film.setRentalRate(new BigDecimal("1.99"));
         film.setReplacementCost(new BigDecimal("10.99")); 
         
         Language language = new Language();
@@ -244,10 +242,12 @@ public class FilmsValidationTest {
     public void testReplacementCostMinValue() {
         Film film = new Film();
         film.setReplacementCost(new BigDecimal("0.00")); 
+        
         film.setTitle("Test Movie");
         film.setRating("PG");
         film.setReleaseYear((short) 2025);
         film.setRentalDuration((byte) 5); 
+        film.setRentalRate(new BigDecimal("10.99")); 
         
         Language language = new Language();
         language.setLanguageId(1);
@@ -260,6 +260,7 @@ public class FilmsValidationTest {
         assertFalse(violations.isEmpty());
         assertEquals(1, violations.size());
 
+      
         for (ConstraintViolation<Film> violation : violations) {
             if ("El costo de reemplazo debe ser mayor que 0".equals(violation.getMessage())) {
                 return; 
@@ -268,6 +269,7 @@ public class FilmsValidationTest {
 
         fail("No se encontró el mensaje de validación para el costo de reemplazo");
     }
+    
     
     @Test
     public void testLanguageNotNull() {
@@ -293,7 +295,6 @@ public class FilmsValidationTest {
 
         fail("No se encontró el mensaje de validación para el idioma nulo");
     }
-
-
+    
 
 }
