@@ -53,7 +53,7 @@ private Validator validator;
 	@Test
 	public void testNameNull() {
 	    Film film = new Film();
-	    film.setTitle(" ");  
+	    film.setTitle(null);  
 
 	    film.setRating("PG");
 	    film.setReleaseYear((short) 2025); 
