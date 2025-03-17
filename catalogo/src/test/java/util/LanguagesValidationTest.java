@@ -32,6 +32,52 @@ public class LanguagesValidationTest {
 
 	        assertTrue(violations.isEmpty());
 	    }
+	    
+	    @Test
+	    public void testEmptyName() {
+	        Language language = new Language();
+	        language.setName(""); 
+
+	        Set<ConstraintViolation<Language>> violations = validator.validate(language);
+
+	        assertFalse(violations.isEmpty());
+	        assertEquals(2, violations.size()); 
+
+	        boolean foundNotEmptyViolation = false;
+	        boolean foundSizeViolation = false;
+
+	        for (ConstraintViolation<Language> violation : violations) {
+	            if ("El nombre del idioma no puede estar vacío".equals(violation.getMessage())) {
+	                foundNotEmptyViolation = true;
+	            }
+	            if ("El nombre del idioma debe tener entre 3 y 20 caracteres".equals(violation.getMessage())) {
+	                foundSizeViolation = true;
+	            }
+	        }
+
+	        assertTrue(foundNotEmptyViolation);
+	        assertTrue(foundSizeViolation);
+	    }
+	    
+	    @Test
+	    public void testSizeName() {
+	        Language language = new Language();
+	        language.setName("En"); 
+
+	        Set<ConstraintViolation<Language>> violations = validator.validate(language);
+
+	        assertFalse(violations.isEmpty());
+	        assertEquals(1, violations.size()); 
+
+	        assertEquals("El nombre del idioma debe tener entre 3 y 20 caracteres", violations.iterator().next().getMessage());
+	    }
+
+
+
+
+
+
+
 		
 	}
 
