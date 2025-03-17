@@ -2,6 +2,7 @@ package com.example.domains.entities;
 
 import java.io.Serializable;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -28,8 +29,8 @@ public class Category implements Serializable {
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
 	private Timestamp lastUpdate;
 
-	@NotEmpty(message = "El nombre de la categoría no puede estar vacío")
 	@NotNull(message = "El nombre de la categoría no puede ser nulo")
+	@NotBlank(message = "El nombre de la categoría no puede estar vacío")
 	@Size(min = 3, max = 25, message = "El nombre de la categoría debe tener entre 3 y 25 caracteres")
 	@Column(nullable=false, length=25)
 	private String name;

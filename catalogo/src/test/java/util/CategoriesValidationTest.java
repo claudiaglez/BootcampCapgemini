@@ -1,0 +1,84 @@
+package util;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Set;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import com.example.domains.entities.Category;
+
+public class CategoriesValidationTest {
+
+	private Validator validator;
+	
+	@BeforeEach
+    public void setUp() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+    }
+	
+	@Test
+    public void testNameNotNull() {
+        Category category = new Category();
+        category.setName("Cartoon");
+
+        Set<ConstraintViolation<Category>> violations = validator.validate(category);
+
+        assertTrue(violations.isEmpty());
+    }
+	
+	@Test
+	public void testNameNull() {
+	    Category category = new Category();
+	    category.setName(null);
+
+	    Set<ConstraintViolation<Category>> violations = validator.validate(category);
+
+	    assertFalse(violations.isEmpty());
+	    boolean foundNullMessage = violations.stream()
+	                                         .anyMatch(v -> "El nombre de la categoría no puede ser nulo".equals(v.getMessage()));
+	    assertTrue(foundNullMessage);
+	}
+	
+	@Test
+    public void testEmptyName() {
+        Category category = new Category();
+        category.setName(""); 
+
+        Set<ConstraintViolation<Category>> violations = validator.validate(category);
+
+        assertFalse(violations.isEmpty());
+        assertEquals(2, violations.size()); 
+
+        boolean foundNotEmptyViolation = false;
+        boolean foundSizeViolation = false;
+
+        for (ConstraintViolation<Category> violation : violations) {
+            if ("El nombre de la categoría no puede estar vacío".equals(violation.getMessage())) {
+                foundNotEmptyViolation = true;
+            }
+            if ("El nombre de la categoría debe tener entre 3 y 25 caracteres".equals(violation.getMessage())) {
+                foundSizeViolation = true;
+            }
+        }
+
+        assertTrue(foundNotEmptyViolation);
+        assertTrue(foundSizeViolation);
+    }
+
+	
+
+
+	
+	
+	
+	
+
+}
