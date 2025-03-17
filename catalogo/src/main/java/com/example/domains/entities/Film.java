@@ -37,7 +37,7 @@ public class Film implements Serializable {
 	private int length;
 
 	@Column(length=1)
-	@Pattern(regexp = "^[G|PG|PG-13|R|NC-17]{1}$", message = "El rating debe ser uno de los valores: G, PG, PG-13, R, NC-17")
+	@Pattern(regexp = "^(G|PG|PG-13|R|NC-17)$", message = "El rating debe ser uno de los valores: G, PG, PG-13, R, NC-17")
 	private String rating;
 
 	@Column(name="release_year")
