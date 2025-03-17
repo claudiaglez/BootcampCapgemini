@@ -46,6 +46,19 @@ public class ActoresValidationTest {
         assertEquals(1, violations.size());
         assertEquals("El nombre no puede ser nulo.", violations.iterator().next().getMessage());
     }
+    
+    @Test
+    public void testFirstNameTooShort() {
+        Actor actor = new Actor();
+        actor.setFirstName("D"); 
+        actor.setLastName("Gonzalez");
+
+        Set<ConstraintViolation<Actor>> violations = validator.validate(actor);
+
+        assertFalse(violations.isEmpty());
+        assertEquals(1, violations.size());
+        assertEquals("El nombre debe tener entre 2 y 45 caracteres.", violations.iterator().next().getMessage());
+    }
 
 
 }
