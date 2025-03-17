@@ -78,5 +78,19 @@ public class ActoresServiceTest {
 
 	        verify(actoresRepository).findByActorIdGreaterThan(1);
 	    }
+	    
+	    @Test
+	    public void testObtenerActoresPorLetra() {
+	    	when(actoresRepository.findByFirstNameStartingWith("C")).thenReturn(Arrays.asList(actor1, actor2));
+
+	        List<Actor> result = actoresService.obtenerActoresPorLetra("C");
+
+	        assertNotNull(result);
+	        assertEquals(2, result.size());
+	        assertTrue(result.contains(actor1));
+	        assertTrue(result.contains(actor2));
+
+	        verify(actoresRepository).findByFirstNameStartingWith("C");
+	    }
 
 }
