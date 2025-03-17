@@ -174,6 +174,38 @@ public class FilmsValidationTest {
 
         assertTrue(found, "No se encontró el mensaje de validación para el rating inválido");
     }
+    
+    @Test
+    public void testReleaseYearNull() {
+        Film film = new Film();
+        film.setReleaseYear(null); 
+        
+        film.setTitle("Test Movie");
+        film.setRating("PG");
+        film.setRentalDuration((byte) 5); 
+        film.setRentalRate(new BigDecimal("1.99")); 
+        film.setReplacementCost(new BigDecimal("19.99")); 
+
+        Language englishLanguage = new Language();
+        englishLanguage.setLanguageId(1);  
+        englishLanguage.setName("English");  
+
+        film.setLanguage(englishLanguage);
+        film.setFilmId(1);
+
+        Set<ConstraintViolation<Film>> violations = validator.validate(film);
+
+        assertFalse(violations.isEmpty());
+        assertEquals(1, violations.size()); 
+
+        for (ConstraintViolation<Film> violation : violations) {
+            if ("El año de lanzamiento no puede ser nulo".equals(violation.getMessage())) {
+                return; 
+            }
+        }
+
+        fail("No se encontró el mensaje de validación para el año de lanzamiento nulo");
+    }
 
 
 
