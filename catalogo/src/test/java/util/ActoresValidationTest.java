@@ -33,6 +33,19 @@ public class ActoresValidationTest {
 
         assertTrue(violations.isEmpty());
     }
+    
+    @Test
+    public void testFirstNameNull() {
+        Actor actor = new Actor();
+        actor.setFirstName(null); 
+        actor.setLastName("Gonzalez");
+
+        Set<ConstraintViolation<Actor>> violations = validator.validate(actor);
+
+        assertFalse(violations.isEmpty());
+        assertEquals(1, violations.size());
+        assertEquals("El nombre no puede ser nulo.", violations.iterator().next().getMessage());
+    }
 
 
 }
