@@ -73,11 +73,11 @@ public class LanguagesServiceImpl implements LanguagesService {
 	}
 
 	@Override
-	public List<Language> obtenerIdiomas() {
-		return languagesRepository.findAll();
+		public List<Language> obtenerIdiomas() {
+			return languagesRepository.findAll();
 	}
 	
-	   @Override
+	@Override
 	    public List<Language> idiomasAcabanN(String letra) {
 	        return languagesRepository.findByNameEndingWith(letra);
 	    }

@@ -144,6 +144,33 @@ public class LanguagesServiceTest {
         
         verify(languagesRepository).delete(language);
     }
+    
+    @Test
+    public void testIdiomasAcabanN() {
+        Language spanish = new Language();
+        spanish.setName("Spanish");
+
+        Language english = new Language();
+        english.setName("English");
+
+        Language german = new Language();
+        german.setName("German");
+
+        List<Language> idiomasMock = Arrays.asList(spanish, english, german);
+
+        when(languagesRepository.findByNameEndingWith("n")).thenReturn(idiomasMock);
+
+        List<Language> result = languagesService.idiomasAcabanN("n");
+
+        assertNotNull(result);
+        assertEquals(3, result.size());
+        assertTrue(result.stream().anyMatch(idioma -> idioma.getName().equals("Spanish")));
+        assertTrue(result.stream().anyMatch(idioma -> idioma.getName().equals("English")));
+        assertTrue(result.stream().anyMatch(idioma -> idioma.getName().equals("German")));
+    }
+    
+   
+    
 
 }
 
