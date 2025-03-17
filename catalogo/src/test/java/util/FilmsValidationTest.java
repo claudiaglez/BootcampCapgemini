@@ -238,6 +238,31 @@ public class FilmsValidationTest {
 
         fail("No se encontró el mensaje de validación para la tarifa de alquiler");
     }
+    
+    @Test
+    public void testLanguageNotNull() {
+        Film film = new Film();
+        film.setLanguage(null); 
+        film.setTitle("Test Movie");
+        film.setRating("PG");
+        film.setReleaseYear((short) 2025);
+        film.setRentalDuration((byte) 5); 
+        film.setRentalRate(new BigDecimal("1.99")); 
+        film.setReplacementCost(new BigDecimal("19.99"));
+
+        Set<ConstraintViolation<Film>> violations = validator.validate(film);
+
+        assertFalse(violations.isEmpty());
+        assertEquals(1, violations.size());
+
+        for (ConstraintViolation<Film> violation : violations) {
+            if ("El idioma no puede ser nulo".equals(violation.getMessage())) {
+                return; 
+            }
+        }
+
+        fail("No se encontró el mensaje de validación para el idioma nulo");
+    }
 
 
 
