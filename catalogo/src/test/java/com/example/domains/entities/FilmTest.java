@@ -1,4 +1,4 @@
-package util;
+package com.example.domains.entities;
 
 import static org.assertj.core.api.Assertions.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -20,7 +20,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 
 @SpringBootTest(classes = CatalogoApplication.class)
-public class FilmsValidationTest {
+public class FilmTest {
 
     @Autowired
     private Validator validator; 

@@ -1,4 +1,4 @@
-package util;
+package com.example.domains.entities;
 
 import java.util.Set;
 
@@ -13,7 +13,7 @@ import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class ActoresValidationTest {
+public class ActorTest {
 
 	private Validator validator;
 

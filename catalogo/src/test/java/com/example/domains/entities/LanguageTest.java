@@ -1,4 +1,4 @@
-package util;
+package com.example.domains.entities;
 
 import java.util.Set;
 
@@ -13,7 +13,7 @@ import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
 
-public class LanguagesValidationTest {
+public class LanguageTest {
 		
 		private Validator validator;
 

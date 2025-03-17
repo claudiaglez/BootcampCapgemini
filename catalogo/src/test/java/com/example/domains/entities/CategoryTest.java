@@ -1,4 +1,4 @@
-package util;
+package com.example.domains.entities;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 
 import com.example.domains.entities.Category;
 
-public class CategoriesValidationTest {
+public class CategoryTest {
 
 	private Validator validator;
 	
