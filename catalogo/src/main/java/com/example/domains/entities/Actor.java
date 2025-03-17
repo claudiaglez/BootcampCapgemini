@@ -3,6 +3,7 @@ package com.example.domains.entities;
 import java.io.Serializable;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.sql.Timestamp;
@@ -25,13 +26,15 @@ public class Actor implements Serializable {
 	@Column(name="actor_id", unique=true, nullable=false)
 	private int actorId;
 	
-	@NotNull(message = "El primer nombre no puede ser nulo.")
-	@Size(min = 2, max = 45, message = "El primer nombre debe tener entre 2 y 45 caracteres.")
+	@NotNull(message = "El nombre no puede ser nulo.")
+	@Size(min = 2, max = 45, message = "El nombre debe tener entre 2 y 45 caracteres.")
+	@Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$", message = "El nombre solo puede contener letras, espacios y caracteres especiales como tildes y 'ñ'.")
 	@Column(name="first_name", nullable=false, length=45)
 	private String firstName;
 
 	@NotNull(message = "El apellido no puede ser nulo.")
     @Size(min = 2, max = 45, message = "El apellido debe tener entre 2 y 45 caracteres.")
+	@Pattern(regexp = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$", message = "El apellido solo puede contener letras, espacios y caracteres especiales como tildes y 'ñ'.")
 	@Column(name="last_name", nullable=false, length=45)
 	private String lastName;
 
