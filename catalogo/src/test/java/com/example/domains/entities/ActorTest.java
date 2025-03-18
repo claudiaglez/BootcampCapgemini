@@ -3,6 +3,7 @@ package com.example.domains.entities;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.example.domains.entities.Actor;
@@ -24,6 +25,7 @@ public class ActorTest {
     }
 
     @Test
+    @DisplayName("Nombre del actor no nulo y de tamaño válido")
     public void testFirstNameNotNullAndValidSize() {
         Actor actor = new Actor();
         actor.setFirstName("Daniel");
@@ -35,6 +37,7 @@ public class ActorTest {
     }
     
     @Test
+    @DisplayName("Nombre del actor nulo")
     public void testFirstNameNull() {
         Actor actor = new Actor();
         actor.setFirstName(null); 
@@ -48,6 +51,7 @@ public class ActorTest {
     }
     
     @Test
+    @DisplayName("Nombre del actor muy corto")
     public void testFirstNameTooShort() {
         Actor actor = new Actor();
         actor.setFirstName("D"); 
@@ -61,6 +65,7 @@ public class ActorTest {
     }
     
     @Test
+    @DisplayName("Nombre del actor con caracteres válidos")
     public void testFirstNameWithValidCharacters() {
         Actor actor = new Actor();
         actor.setFirstName("José Luis");
