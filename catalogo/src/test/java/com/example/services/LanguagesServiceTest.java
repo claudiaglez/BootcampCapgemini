@@ -4,6 +4,7 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
@@ -33,6 +34,7 @@ public class LanguagesServiceTest {
     }
 
     @Test
+    @DisplayName("Añadir idioma")
     void testAddLanguage() throws DuplicateKeyException, InvalidDataException {
         Language language = new Language();
         language.setName("Spanish");
@@ -50,6 +52,7 @@ public class LanguagesServiceTest {
     }
     
     @Test
+    @DisplayName("Obtener todos los idiomas")
     void testGetAllLanguages() {
         Language language1 = new Language();
         language1.setName("Spanish");
@@ -70,6 +73,7 @@ public class LanguagesServiceTest {
     }
     
     @Test
+    @DisplayName("Obtener un idioma")
     void testGetOneLanguage() {
         Language language = new Language();
         language.setName("Spanish");
@@ -85,6 +89,7 @@ public class LanguagesServiceTest {
     }
 
     @Test
+    @DisplayName("Obtener un idioma no existente")
     void testGetOneLanguageNotFound() {
         when(languagesRepository.findById(999)).thenReturn(Optional.empty());
 
@@ -96,6 +101,7 @@ public class LanguagesServiceTest {
     }
     
     @Test
+    @DisplayName("Modificar idioma")
     void testModifyLanguage() throws NotFoundException, InvalidDataException {
 
         Language existingLanguage = new Language();
@@ -118,6 +124,7 @@ public class LanguagesServiceTest {
     }
 
     @Test
+    @DisplayName("Modificar idioma no encontrado")
     void testModifyLanguageNotFound() {
         Language modifiedLanguage = new Language();
         modifiedLanguage.setLanguageId(1); 
@@ -133,6 +140,7 @@ public class LanguagesServiceTest {
     }
 
     @Test
+    @DisplayName("Eliminar idioma")
     void testDeleteLanguage() throws InvalidDataException {
 
         Language language = new Language();
@@ -146,6 +154,7 @@ public class LanguagesServiceTest {
     }
     
     @Test
+    @DisplayName("Obtener idiomas que acaban en N")
     public void testIdiomasAcabanN() {
         Language spanish = new Language();
         spanish.setName("Spanish");
