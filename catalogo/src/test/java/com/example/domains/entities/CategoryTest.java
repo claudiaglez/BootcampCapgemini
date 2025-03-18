@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.example.domains.entities.Category;
@@ -25,6 +26,7 @@ public class CategoryTest {
     }
 	
 	@Test
+	@DisplayName("Nombre de la categoría no nula")
     public void testNameNotNull() {
         Category category = new Category();
         category.setName("Cartoon");
@@ -35,6 +37,7 @@ public class CategoryTest {
     }
 	
 	@Test
+	@DisplayName("Nombre de la categoría nula")
 	public void testNameNull() {
 	    Category category = new Category();
 	    category.setName(null);
@@ -48,6 +51,7 @@ public class CategoryTest {
 	}
 	
 	@Test
+	@DisplayName("Nombre de la categoría vacía")
     public void testEmptyName() {
         Category category = new Category();
         category.setName(""); 
@@ -74,6 +78,7 @@ public class CategoryTest {
     }
 	
 	@Test
+	@DisplayName("Tamaño del nombre de la categoría")
     public void testSizeName() {
         Category category = new Category();
         category.setName("En"); 
