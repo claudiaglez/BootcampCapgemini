@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -42,6 +43,7 @@ public class ActoresServiceTest {
 	    }
 
 	    @Test
+	    @DisplayName("Obtener actores por prefijo")
 	    public void testObtenerActoresPorPrefijo() {
 	        when(actoresRepository.findByFirstNameStartingWith("Car")).thenReturn(Arrays.asList(actor1, actor2));
 
@@ -56,6 +58,7 @@ public class ActoresServiceTest {
 	    }
 	    
 	    @Test
+	    @DisplayName("No obtener actores por prefijo")
 	    public void testObtenerActoresPorPrefijoNoResultados() {
 	        when(actoresRepository.findByFirstNameStartingWith("Joaquin")).thenReturn(Arrays.asList());
 
@@ -66,6 +69,7 @@ public class ActoresServiceTest {
 	    }
 	    
 	    @Test
+	    @DisplayName("Obtener actores mayores que...")
 	    public void testObtenerActoresMayoresQue() {
 	        when(actoresRepository.findByActorIdGreaterThan(1)).thenReturn(Arrays.asList(actor2));
 
@@ -79,6 +83,7 @@ public class ActoresServiceTest {
 	    }
 	    
 	    @Test
+	    @DisplayName("Obtener actores por inicial")
 	    public void testObtenerActoresPorLetra() {
 	    	when(actoresRepository.findByFirstNameStartingWith("C")).thenReturn(Arrays.asList(actor1, actor2));
 
