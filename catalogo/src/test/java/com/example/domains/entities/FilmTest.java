@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.math.BigDecimal;
 import java.util.Set;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,6 +27,7 @@ public class FilmTest {
     private Validator validator; 
 
     @Test
+    @DisplayName("Título de la película no nulo")
     public void testTitleNotNull() {
         Film film = new Film();
         film.setTitle("Cartoon in the snow");  
@@ -49,6 +51,7 @@ public class FilmTest {
     }
     
     @Test
+    @DisplayName("Título de la película nulo")
     public void testTitleNull() {
         Film film = new Film();
         film.setTitle(null); 
@@ -75,6 +78,7 @@ public class FilmTest {
     }
     
     @Test
+    @DisplayName("Título de la película vacío")
     public void testEmptyTitle() {
         Film film = new Film();
         film.setTitle(""); 
@@ -108,6 +112,7 @@ public class FilmTest {
     }
     
     @Test
+    @DisplayName("Título de la película muy largo")
     public void testLongTitle() {
         Film film = new Film();
         film.setTitle("A very long title that exceeds the 128 character limit. " +
@@ -143,6 +148,7 @@ public class FilmTest {
     }
     
     @Test
+    @DisplayName("Rating de la película inválido")
     public void testRatingInvalid() {
         Film film = new Film();
         film.setRating("INVALID");
@@ -175,6 +181,7 @@ public class FilmTest {
     }
     
     @Test
+    @DisplayName("Año de lanzamiento nulo")
     public void testReleaseYearNull() {
         Film film = new Film();
         film.setReleaseYear(null); 
@@ -208,6 +215,7 @@ public class FilmTest {
         
     
     @Test
+    @DisplayName("Tarifa de alquiler con el valor mínimo")
     public void testRentalRateMinValue() {
         Film film = new Film();
         film.setRentalRate(new BigDecimal("0.00")); 
@@ -240,6 +248,7 @@ public class FilmTest {
     }
     
     @Test
+    @DisplayName("Coste de reemplazo con valor mínimo")
     public void testReplacementCostMinValue() {
         Film film = new Film();
         film.setReplacementCost(new BigDecimal("0.00")); 
@@ -273,6 +282,7 @@ public class FilmTest {
     
     
     @Test
+    @DisplayName("Idioma de la película no nulo")
     public void testLanguageNotNull() {
         Film film = new Film();
         film.setLanguage(null); 
@@ -298,6 +308,7 @@ public class FilmTest {
     }
     
     @Test
+    @DisplayName("Tarifa de alquiler con valor negativo")
     public void testRentalRateNegativeValue() {
         Film film = new Film();
         film.setRentalRate(new BigDecimal("-1.00")); 
