@@ -8,6 +8,8 @@ public class Persona {
         this.correo = correo;   
         this.ip = ip;          
     }
+    
+    public Persona() {}
 
     public long getId() {
         return id;
