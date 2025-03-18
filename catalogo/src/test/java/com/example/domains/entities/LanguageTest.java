@@ -3,6 +3,7 @@ package com.example.domains.entities;
 import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,6 +25,7 @@ public class LanguageTest {
 	    }
 
 	    @Test
+	    @DisplayName("Nombre del idioma válido")
 	    public void testValidName() {
 	        Language language = new Language();
 	        language.setName("English");
@@ -34,6 +36,7 @@ public class LanguageTest {
 	    }
 	    
 	    @Test
+	    @DisplayName("Nombre del idioma vacío")
 	    public void testEmptyName() {
 	        Language language = new Language();
 	        language.setName(""); 
@@ -60,6 +63,7 @@ public class LanguageTest {
 	    }
 	    
 	    @Test
+	    @DisplayName("Nombre del idioma de tamaño válido")
 	    public void testSizeName() {
 	        Language language = new Language();
 	        language.setName("En"); 
@@ -71,12 +75,6 @@ public class LanguageTest {
 
 	        assertEquals("El nombre del idioma debe tener entre 3 y 20 caracteres", violations.iterator().next().getMessage());
 	    }
-
-
-
-
-
-
 
 		
 	}
