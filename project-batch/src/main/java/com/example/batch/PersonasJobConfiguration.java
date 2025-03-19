@@ -138,11 +138,22 @@ public class PersonasJobConfiguration {
 		return new StepBuilder("exportDB2XMLStep", jobRepository).<Persona, Persona>chunk(100, transactionManager)
 				.reader(personaDBItemReader).writer(personaXMLItemWriter()).build();
 	}
+	
+	@Bean
+	public Step copyFilesInDir(FTPLoadTasklet ftpLoadTasklet) {
+		return new StepBuilder("copyFilesInDir", jobRepository).tasklet(ftpLoadTasklet, transactionManager).build();
+	}
 
 	@Bean
-	public Job personasJob(Step importXML2DBStep1, Step exportDB2XMLStep, Step exportDB2CSVStep) {
-		return new JobBuilder("personasJob", jobRepository).incrementer(new RunIdIncrementer()).start(importXML2DBStep1)
-				.next(exportDB2XMLStep).next(exportDB2CSVStep).build();
+	public Job personasJob(PersonasJobListener listener, Step copyFilesInDir) {
+		return new JobBuilder("personasJob", jobRepository).incrementer(new RunIdIncrementer()).listener(listener)
+				.start(copyFilesInDir).build();
+}
+	@Bean
+	public FTPLoadTasklet ftpLoadTasklet(@Value("${input.dir.name:./ftp}") String dir) {
+		FTPLoadTasklet tasklet = new FTPLoadTasklet();
+		tasklet.setDirectoryResource(new FileSystemResource(dir));
+		return tasklet;
 	}
 
 }
