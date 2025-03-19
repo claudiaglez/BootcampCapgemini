@@ -2,6 +2,7 @@ package com.example.domains.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.example.domains.contracts.repositories.ActoresRepository;
 import com.example.domains.contracts.services.ActoresService;
 import com.example.domains.entities.Actor;
+import com.example.domains.entities.models.ActorDTO;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
@@ -80,5 +82,12 @@ public class ActoresServiceImpl implements ActoresService {
         return actoresRepository.findByFirstNameStartingWith(letra);
     }
 
+    @Override
+    public List<ActorDTO> getByProjection(Class<ActorDTO> class1) {
+        List<Actor> actores = actoresRepository.findAll();
+        return actores.stream()
+                      .map(actor -> ActorDTO.from(actor)) 
+                      .collect(Collectors.toList());
+    }
 
 }
