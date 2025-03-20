@@ -3,12 +3,15 @@ package com.example.application.resources;
 import java.net.URI;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -61,6 +64,20 @@ public class LanguagesResource {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 			.buildAndExpand(newItem.getLanguageId()).toUri();
 		return ResponseEntity.created(location).build();
+	}
+	
+	@PutMapping("/{id}")
+	@Operation(summary = "Modifica un idioma por su id")
+	@ApiResponse(responseCode = "204", description = "Idioma a modificar")
+	@ApiResponse(responseCode = "400", description = "El id del idioma no coincide con el recurso a modificar")
+	@ApiResponse(responseCode = "404", description = "Idioma no encontrado")
+	@ApiResponse(responseCode = "422", description = "Datos inválidos proporcionados en el cuerpo de la solicitud")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void update(@PathVariable int id, @Valid @RequestBody LanguageDTO item) throws BadRequestException, NotFoundException, InvalidDataException {
+		if (item.getLanguageId() != id) {
+			throw new BadRequestException("El id de la categoría no coincide con el recurso a modificar");
+		}
+		languagesService.modify(LanguageDTO.from(item));
 	}
 	
 
