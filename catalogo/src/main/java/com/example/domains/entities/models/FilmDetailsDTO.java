@@ -1,9 +1,15 @@
 package com.example.domains.entities.models;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.example.domains.entities.Actor;
+import com.example.domains.entities.Category;
 import com.example.domains.entities.Film;
+import com.example.domains.entities.FilmActor;
+import com.example.domains.entities.FilmCategory;
+import com.example.domains.entities.Language;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -58,7 +64,7 @@ public class FilmDetailsDTO {
                 source.getFilmId(),
                 source.getDescription(),
                 source.getLength(),
-                source.getRating(),  
+                source.getRating(),
                 source.getReleaseYear(),
                 source.getRentalDuration(),
                 source.getRentalRate(),
@@ -66,9 +72,62 @@ public class FilmDetailsDTO {
                 source.getTitle(),
                 source.getLanguage() == null ? null : source.getLanguage().getName(),
                 source.getLanguageVO() == null ? null : source.getLanguageVO().getName(),
-                source.getActors().stream().map(item -> item.getFirstName() + " " + item.getLastName())
-                    .sorted().toList(),
-                source.getCategories().stream().map(item -> item.getName()).sorted().toList()
+                source.getActors().stream().map(actor -> actor.getFirstName() + " " + actor.getLastName())
+                        .sorted().toList(),
+                source.getCategories().stream().map(category -> category.getName())
+                        .sorted().toList()
         );
+    }
+
+    
+    public static Film toEntity(FilmDetailsDTO dto) {
+        Film film = new Film();
+        film.setFilmId(dto.getFilmId());  
+        film.setDescription(dto.getDescription());
+        film.setLength(dto.getLength());
+        film.setRating(dto.getRating());
+        film.setReleaseYear(dto.getReleaseYear());
+        film.setRentalDuration(dto.getRentalDuration());
+        film.setRentalRate(dto.getRentalRate());
+        film.setReplacementCost(dto.getReplacementCost());
+        film.setTitle(dto.getTitle());
+
+        if (dto.getLanguage() != null) {
+            Language language = new Language();
+            language.setName(dto.getLanguage()); 
+            film.setLanguage(language);
+        }
+
+        if (dto.getLanguageVO() != null) {
+            Language languageVO = new Language();
+            languageVO.setName(dto.getLanguageVO()); 
+            film.setLanguageVO(languageVO);
+        }
+
+        if (dto.getActors() != null && !dto.getActors().isEmpty()) {
+            List<FilmActor> filmActors = new ArrayList<>();
+            for (String actorName : dto.getActors()) {
+                Actor actor = new Actor(); 
+                actor.setFirstName(actorName);  
+                FilmActor filmActor = new FilmActor();
+                filmActor.setActor(actor);
+                filmActors.add(filmActor);
+            }
+            film.setFilmActors(filmActors); 
+        }
+
+        if (dto.getCategories() != null && !dto.getCategories().isEmpty()) {
+            List<FilmCategory> filmCategories = new ArrayList<>();
+            for (String categoryName : dto.getCategories()) {
+                Category category = new Category();
+                category.setName(categoryName); 
+                FilmCategory filmCategory = new FilmCategory();
+                filmCategory.setCategory(category);
+                filmCategories.add(filmCategory);
+            }
+            film.setFilmCategories(filmCategories);
+        }
+
+        return film;
     }
 }

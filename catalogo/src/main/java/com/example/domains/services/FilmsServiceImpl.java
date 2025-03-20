@@ -4,11 +4,14 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.example.domains.contracts.repositories.FilmsRepository;
 import com.example.domains.contracts.services.FilmsService;
 import com.example.domains.entities.Film;
+import com.example.domains.entities.models.FilmDetailsDTO;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
@@ -75,6 +78,18 @@ public class FilmsServiceImpl implements FilmsService {
 	@Override
 	public List<Film> obtenerPeliculasPorTitulo(String titulo) {
 		return filmsRepository.findByTitleContainingIgnoreCase(titulo);
+	}
+
+	@Override
+	public List<FilmDetailsDTO> getByProjection(Class<FilmDetailsDTO> class1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<FilmDetailsDTO> getByProjection(Pageable pageable, Class<FilmDetailsDTO> class1) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
