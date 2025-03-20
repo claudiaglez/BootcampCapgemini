@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -78,6 +79,16 @@ public class LanguagesResource {
 			throw new BadRequestException("El id de la categoría no coincide con el recurso a modificar");
 		}
 		languagesService.modify(LanguageDTO.from(item));
+	}
+	
+	@DeleteMapping("/{id}")
+	@Operation(summary = "Borra una idioma por su id")
+	@ApiResponse(responseCode = "204", description = "Idioma a borrar")
+	@ApiResponse(responseCode = "404", description = "Idioma no encontrado")
+	@ApiResponse(responseCode = "400", description = "ID inválido proporcionado")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable int id) {
+		languagesService.deleteById(id);
 	}
 	
 
