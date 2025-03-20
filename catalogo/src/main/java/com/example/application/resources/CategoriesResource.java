@@ -6,12 +6,15 @@ import java.util.List;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -70,6 +73,20 @@ public class CategoriesResource {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 			.buildAndExpand(newItem.getCategoryId()).toUri();
 		return ResponseEntity.created(location).build();
+	}
+	
+	@PutMapping("/{id}")
+	@Operation(summary = "Modifica una categoría por su id")
+	@ApiResponse(responseCode = "204", description = "Categoría a modificar")
+	@ApiResponse(responseCode = "400", description = "El id de la categoría no coincide con el recurso a modificar")
+	@ApiResponse(responseCode = "404", description = "Categoría no encontrada")
+	@ApiResponse(responseCode = "422", description = "Datos inválidos proporcionados en el cuerpo de la solicitud")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void update(@PathVariable int id, @Valid @RequestBody CategoryDTO item) throws BadRequestException, NotFoundException, InvalidDataException {
+		if (item.getCategoryId() != id) {
+			throw new BadRequestException("El id de la categoría no coincide con el recurso a modificar");
+		}
+		categoriesService.modify(CategoryDTO.from(item));
 	}
 	
 	
