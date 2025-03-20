@@ -3,14 +3,17 @@ package com.example.domains.entities.models;
 import com.example.domains.entities.Category;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data @AllArgsConstructor
+@Schema(name = "Categoría", description = "Datos de la categoría")
 public class CategoryDTO {
 
 	@JsonProperty("id")
 	private int categoryId;
+	@Schema(name = "Nombre de la categoría", example = "Cartoon", minLength = 3, maxLength = 25)
 	@JsonProperty("name")
 	private String name;
 	
