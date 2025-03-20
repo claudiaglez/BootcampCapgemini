@@ -80,6 +80,10 @@ public class ActoresResource {
 	}
 
 	@PutMapping("/{id}")
+	@ApiResponse(responseCode = "204", description = "Actor a modificar")
+	@ApiResponse(responseCode = "400", description = "El id del actor no coincide con el recurso a modificar")
+	@ApiResponse(responseCode = "404", description = "Actor no encontrado")
+	@ApiResponse(responseCode = "422", description = "Datos inválidos proporcionados en el cuerpo de la solicitud")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void update(@PathVariable int id, @Valid @RequestBody ActorDTO item) throws BadRequestException, NotFoundException, InvalidDataException {
 		if (item.getActorId() != id) {
@@ -89,6 +93,9 @@ public class ActoresResource {
 	}
 
 	@DeleteMapping("/{id}")
+	@ApiResponse(responseCode = "204", description = "Actor a borrar")
+	@ApiResponse(responseCode = "404", description = "Actor no encontrado")
+	@ApiResponse(responseCode = "400", description = "ID inválido proporcionado")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable int id) {
 		srv.deleteById(id);
