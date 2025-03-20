@@ -10,6 +10,7 @@ import com.example.domains.contracts.repositories.LanguagesRepository;
 import com.example.domains.contracts.services.LanguagesService;
 import com.example.domains.entities.Category;
 import com.example.domains.entities.Language;
+import com.example.domains.entities.models.LanguageDTO;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
@@ -81,5 +82,11 @@ public class LanguagesServiceImpl implements LanguagesService {
 	    public List<Language> idiomasAcabanN(String letra) {
 	        return languagesRepository.findByNameEndingWith(letra);
 	    }
+
+	@Override
+	public List<LanguageDTO> getByProjection(Class<LanguageDTO> class1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
