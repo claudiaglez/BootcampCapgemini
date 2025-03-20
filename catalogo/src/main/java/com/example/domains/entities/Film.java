@@ -10,6 +10,7 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.List;
 
 
@@ -222,6 +223,14 @@ public class Film implements Serializable {
 		filmCategory.setFilm(null);
 
 		return filmCategory;
+	}
+
+	public List<Actor> getActors() {
+		return this.filmActors.stream().map(item -> item.getActor()).toList();
+	}
+
+	public List<Category> getCategories() {
+		return this.filmCategories.stream().map(item -> item.getCategory()).toList();
 	}
 
 
