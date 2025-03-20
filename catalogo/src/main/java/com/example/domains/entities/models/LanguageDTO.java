@@ -5,17 +5,18 @@ import java.util.ArrayList;
 import com.example.domains.entities.Language;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-
+@Schema(name = "Idioma", description = "Datos del idioma")
 public class LanguageDTO {
 
     @JsonProperty("id")
     private int languageId;
-
+    @Schema(name = "Nombre del idioma", example = "English", minLength = 3, maxLength = 20)
     @JsonProperty("name")
     private String name;
 
