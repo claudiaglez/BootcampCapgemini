@@ -45,16 +45,11 @@ public class CategoriesResource {
 	}
 	
 	@GetMapping
-	@Hidden
+	@Operation(summary = "Obtiene todas las categorías")
 	public List<CategoryDTO> getAll() {
 		return categoriesService.getByProjection(CategoryDTO.class);
 	}
-	
-	@GetMapping(params = { "page" })
-	@Operation(summary = "Obtiene todas las categorías paginadas")
-	public Page<CategoryDTO> getAll(@ParameterObject Pageable pageable){
-		return categoriesService.getByProjection(pageable, CategoryDTO.class);
-	}
+
 	
 	@GetMapping(path = "/{id}")
 	@Operation(summary = "Obtiene una categoría por su id")

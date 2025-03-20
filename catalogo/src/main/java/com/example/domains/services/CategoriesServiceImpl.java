@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.example.domains.contracts.repositories.ActoresRepository;
@@ -11,6 +13,7 @@ import com.example.domains.contracts.repositories.CategoriesRepository;
 import com.example.domains.contracts.services.CategoriesService;
 import com.example.domains.entities.Actor;
 import com.example.domains.entities.Category;
+import com.example.domains.entities.models.CategoryDTO;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
@@ -78,5 +81,17 @@ public class CategoriesServiceImpl implements CategoriesService {
 	    public List<Category> obtenerCategoriasMayoresQue(int id) {
 	        return categoriesRepository.findByCategoryIdGreaterThan(id);
 	    }
+
+	@Override
+	public List<CategoryDTO> getByProjection(Class<CategoryDTO> class1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<CategoryDTO> getByProjection(Pageable pageable, Class<CategoryDTO> class1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
