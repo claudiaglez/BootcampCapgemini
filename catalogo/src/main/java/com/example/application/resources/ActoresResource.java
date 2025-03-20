@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -27,10 +28,16 @@ import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
 import com.example.exceptions.NotFoundException;
 
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/actores/v1")
+@Tag(name = "actor-service", description = "Gestión de actores")
 public class ActoresResource {
 	private ActoresService srv;
 	
@@ -40,17 +47,20 @@ public class ActoresResource {
 	}
 	
 	@GetMapping
+	@Hidden
 	public List<ActorDTO> getAll(){
 		return srv.getByProjection(ActorDTO.class);
 	}
 	
 	@GetMapping(params = { "page" })
-	public Page<ActorDTO> getAll(Pageable pageable){
+	@Operation(summary = "Obtiene todos los actores paginados")
+	public Page<ActorDTO> getAll(@ParameterObject Pageable pageable){
 		return srv.getByProjection(pageable, ActorDTO.class);
 	}
 	
 	@GetMapping(path = "/{id}")
-	public ActorDTO getOne(@PathVariable int id) throws NotFoundException {
+	@Operation(summary = "Obtiene un actor por su id")
+	public ActorDTO getOne(@PathVariable @Parameter(description = "Identificador del actor") int id) throws NotFoundException {
 		var item = srv.getOne(id);
 		if (item.isEmpty()) {
 			throw new NotFoundException("No se encontró el actor con id " + id);
@@ -61,6 +71,7 @@ public class ActoresResource {
 	record Titulo(int id, String titulo) { }
 	
 	@PostMapping
+	@ApiResponse(responseCode = "201", description = "Actor creado")
 	public ResponseEntity<Object> create(@Valid @RequestBody ActorDTO item) throws BadRequestException, DuplicateKeyException, InvalidDataException {
 		var newItem = srv.add(ActorDTO.from(item));
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
