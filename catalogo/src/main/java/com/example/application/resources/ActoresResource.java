@@ -71,6 +71,7 @@ public class ActoresResource {
 	record Titulo(int id, String titulo) { }
 	
 	@PostMapping
+	@Operation(summary = "Crea un actor")
 	@ApiResponse(responseCode = "201", description = "Actor creado")
 	public ResponseEntity<Object> create(@Valid @RequestBody ActorDTO item) throws BadRequestException, DuplicateKeyException, InvalidDataException {
 		var newItem = srv.add(ActorDTO.from(item));
@@ -80,6 +81,7 @@ public class ActoresResource {
 	}
 
 	@PutMapping("/{id}")
+	@Operation(summary = "Modifica un actor por su id")
 	@ApiResponse(responseCode = "204", description = "Actor a modificar")
 	@ApiResponse(responseCode = "400", description = "El id del actor no coincide con el recurso a modificar")
 	@ApiResponse(responseCode = "404", description = "Actor no encontrado")
@@ -93,6 +95,7 @@ public class ActoresResource {
 	}
 
 	@DeleteMapping("/{id}")
+	@Operation(summary = "Borra un actor por su id")
 	@ApiResponse(responseCode = "204", description = "Actor a borrar")
 	@ApiResponse(responseCode = "404", description = "Actor no encontrado")
 	@ApiResponse(responseCode = "400", description = "ID inválido proporcionado")
