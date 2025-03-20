@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import com.example.domains.contracts.repositories.ActoresRepository;
@@ -89,5 +91,11 @@ public class ActoresServiceImpl implements ActoresService {
                       .map(actor -> ActorDTO.from(actor)) 
                       .collect(Collectors.toList());
     }
+
+	@Override
+	public Page<ActorDTO> getByProjection(Pageable pageable, Class<ActorDTO> class1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

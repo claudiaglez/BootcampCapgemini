@@ -1,9 +1,11 @@
 package com.example.application.resources;
 
+
 import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 
 import com.example.domains.contracts.services.ActoresService;
@@ -40,6 +44,11 @@ public class ActoresResource {
 		return srv.getByProjection(ActorDTO.class);
 	}
 	
+	@GetMapping(params = { "page" })
+	public Page<ActorDTO> getAll(Pageable pageable){
+		return srv.getByProjection(pageable, ActorDTO.class);
+	}
+	
 	@GetMapping(path = "/{id}")
 	public ActorDTO getOne(@PathVariable int id) throws NotFoundException {
 		var item = srv.getOne(id);
@@ -48,6 +57,8 @@ public class ActoresResource {
 		}
 		return ActorDTO.from(item.get());
 	}
+	
+	record Titulo(int id, String titulo) { }
 	
 	@PostMapping
 	public ResponseEntity<Object> create(@Valid @RequestBody ActorDTO item) throws BadRequestException, DuplicateKeyException, InvalidDataException {
