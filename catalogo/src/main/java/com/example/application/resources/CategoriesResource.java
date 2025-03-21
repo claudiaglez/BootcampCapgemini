@@ -79,7 +79,7 @@ public class CategoriesResource {
 	@ApiResponse(responseCode = "422", description = "Datos inválidos proporcionados en el cuerpo de la solicitud")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void update(@PathVariable int id, @Valid @RequestBody CategoryDTO item) throws BadRequestException, NotFoundException, InvalidDataException {
-		if (item.getCategoryId() != id) {
+		if (item.getId() != id) {
 			throw new BadRequestException("El id de la categoría no coincide con el recurso a modificar");
 		}
 		categoriesService.modify(CategoryDTO.from(item));

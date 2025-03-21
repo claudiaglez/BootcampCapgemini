@@ -12,7 +12,7 @@ import lombok.Data;
 public class CategoryDTO {
 
 	@JsonProperty("id")
-	private int categoryId;
+	private int id;
 	@Schema(name = "Nombre de la categoría", example = "Cartoon", minLength = 3, maxLength = 25)
 	@JsonProperty("name")
 	private String name;
@@ -26,7 +26,7 @@ public class CategoryDTO {
 	
 	public static Category from(CategoryDTO source) {
 		return new Category(
-				source.getCategoryId(),
+				source.getId(),
 				source.getName()
 				);
 	}
