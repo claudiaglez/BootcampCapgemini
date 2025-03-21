@@ -73,7 +73,7 @@ public class ActoresResource {
 	@PostMapping
 	@Operation(summary = "Crea un actor")
 	@ApiResponse(responseCode = "201", description = "Actor creado")
-	public ResponseEntity<Object> create(@Valid @RequestBody ActorDTO item) throws BadRequestException, DuplicateKeyException, InvalidDataException {
+	public ResponseEntity<Object> create(@RequestBody ActorDTO item) throws BadRequestException, DuplicateKeyException, InvalidDataException {
 		var newItem = srv.add(ActorDTO.from(item));
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 			.buildAndExpand(newItem.getActorId()).toUri();
