@@ -80,7 +80,7 @@ public class FilmDetailsDTO {
     }
 
     
-    public static Film toEntity(FilmDetailsDTO dto) {
+    public static Film toFilm(FilmDetailsDTO dto) {
         Film film = new Film();
         film.setFilmId(dto.getFilmId());  
         film.setDescription(dto.getDescription());

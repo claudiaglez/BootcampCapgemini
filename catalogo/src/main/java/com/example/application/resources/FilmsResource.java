@@ -73,7 +73,7 @@ public class FilmsResource {
 	@ApiResponse(responseCode = "201", description = "Película creada")
 	public ResponseEntity<Object> create(@Valid @RequestBody FilmDetailsDTO item)
 			throws BadRequestException, DuplicateKeyException, InvalidDataException {
-		Film newFilm = filmsService.add(FilmDetailsDTO.toEntity(item));
+		Film newFilm = filmsService.add(FilmDetailsDTO.toFilm(item));
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newFilm.getFilmId()).toUri();
 		return ResponseEntity.created(location).build();
@@ -90,7 +90,7 @@ public class FilmsResource {
 	    if (item.getFilmId() != id) {
 	        throw new BadRequestException("El id de la película no coincide con el recurso a modificar");
 	    }
-	    filmsService.modify(FilmDetailsDTO.toEntity(item));
+	    filmsService.modify(FilmDetailsDTO.toFilm(item));
 	}
 
 	@DeleteMapping("/{id}")
