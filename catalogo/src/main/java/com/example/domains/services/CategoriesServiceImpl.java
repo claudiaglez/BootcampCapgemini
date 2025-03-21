@@ -2,16 +2,15 @@ package com.example.domains.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
-import com.example.domains.contracts.repositories.ActoresRepository;
 import com.example.domains.contracts.repositories.CategoriesRepository;
 import com.example.domains.contracts.services.CategoriesService;
-import com.example.domains.entities.Actor;
 import com.example.domains.entities.Category;
 import com.example.domains.entities.models.CategoryDTO;
 import com.example.exceptions.DuplicateKeyException;
@@ -84,8 +83,10 @@ public class CategoriesServiceImpl implements CategoriesService {
 
 	@Override
 	public List<CategoryDTO> getByProjection(Class<CategoryDTO> class1) {
-		// TODO Auto-generated method stub
-		return null;
+		 List<Category> categories = categoriesRepository.findAll();
+	        return categories.stream()
+	                      .map(category -> CategoryDTO.from(category)) 
+	                      .collect(Collectors.toList());
 	}
 
 	@Override
