@@ -43,6 +43,11 @@ public class Category implements Serializable {
         this.name = name;
     }
 
+
+	public Category(Integer categoryId) {
+		this.categoryId = categoryId;
+	}
+
 	public int getCategoryId() {
 		return this.categoryId;
 	}
@@ -66,4 +71,5 @@ public class Category implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 }

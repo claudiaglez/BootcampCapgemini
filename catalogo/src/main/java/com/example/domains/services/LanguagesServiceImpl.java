@@ -2,14 +2,17 @@ package com.example.domains.services;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.domains.contracts.repositories.LanguagesRepository;
 import com.example.domains.contracts.services.LanguagesService;
+import com.example.domains.entities.Actor;
 import com.example.domains.entities.Category;
 import com.example.domains.entities.Language;
+import com.example.domains.entities.models.ActorDTO;
 import com.example.domains.entities.models.LanguageDTO;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
@@ -85,8 +88,10 @@ public class LanguagesServiceImpl implements LanguagesService {
 
 	@Override
 	public List<LanguageDTO> getByProjection(Class<LanguageDTO> class1) {
-		// TODO Auto-generated method stub
-		return null;
+		 List<Language> languages = languagesRepository.findAll();
+	        return languages.stream()
+	                      .map(language -> LanguageDTO.from(language)) 
+	                      .collect(Collectors.toList());
 	}
 
 }
