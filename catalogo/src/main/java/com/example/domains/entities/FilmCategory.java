@@ -30,6 +30,11 @@ public class FilmCategory implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="film_id", nullable=false, insertable=false, updatable=false)
 	private Film film;
+	
+	public FilmCategory(Film film, Category category) {
+        this.film = film;
+        this.category = category;
+    }
 
 	public FilmCategory() {
 	}
@@ -64,6 +69,14 @@ public class FilmCategory implements Serializable {
 
 	public void setFilm(Film film) {
 		this.film = film;
+	}
+	
+	@PrePersist
+	@PreUpdate
+	void prePersiste() {
+		if (id == null) {
+			setId(new FilmCategoryPK(film.getFilmId(), category.getCategoryId()));
+		}
 	}
 
 }
