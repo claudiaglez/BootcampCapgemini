@@ -30,6 +30,11 @@ public class FilmActor implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="film_id", nullable=false, insertable=false, updatable=false)
 	private Film film;
+	
+	public FilmActor(Film film, Actor actor) {
+        this.film = film;
+        this.actor = actor;
+    }
 
 	public FilmActor() {
 	}
@@ -64,6 +69,14 @@ public class FilmActor implements Serializable {
 
 	public void setFilm(Film film) {
 		this.film = film;
+	}
+	
+	@PrePersist 
+	@PreUpdate
+	void prePersiste() {
+		if (id == null) {
+			setId(new FilmActorPK(film.getFilmId(), actor.getActorId()));
+		}
 	}
 
 }
