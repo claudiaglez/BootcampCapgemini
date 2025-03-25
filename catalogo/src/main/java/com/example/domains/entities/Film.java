@@ -10,8 +10,11 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 /**
@@ -76,13 +79,14 @@ public class Film implements Serializable {
 
 	//bi-directional many-to-one association to FilmActor
 	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<FilmActor> filmActors;
+	private List<FilmActor> filmActors = new ArrayList<>();
 
 	//bi-directional many-to-one association to FilmCategory
 	@OneToMany(mappedBy="film", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<FilmCategory> filmCategories;
 
 	public Film() {
+		this.filmActors = new ArrayList<>(); 
 	}
 
 	public int getFilmId() {
@@ -190,11 +194,15 @@ public class Film implements Serializable {
 	}
 
 	public FilmActor addFilmActor(FilmActor filmActor) {
-		getFilmActors().add(filmActor);
-		filmActor.setFilm(this);
+	    if (this.filmActors == null) {
+	        this.filmActors = new ArrayList<>();
+	    }
 
-		return filmActor;
+	    this.filmActors.add(filmActor);
+	    filmActor.setFilm(this);
+	    return filmActor;
 	}
+
 
 	public FilmActor removeFilmActor(FilmActor filmActor) {
 		getFilmActors().remove(filmActor);
@@ -202,21 +210,48 @@ public class Film implements Serializable {
 
 		return filmActor;
 	}
+	
+	public void addActor(Actor actor) {
+		FilmActor filmActor = new FilmActor(this, actor);
+		filmActors.add(filmActor);
+	}
+
+	public void addActor(int actorId) {
+		addActor(new Actor(actorId));
+	}
+	
+	public void removeActor(Actor actor) {
+		var filmActor = filmActors.stream().filter(item -> item.getActor().equals(actor)).findFirst();
+		if (filmActor.isEmpty())
+			return;
+		filmActors.remove(filmActor.get());
+	}
+
+	public void removeActor(int actorId) {
+		removeActor(new Actor(actorId));
+	}
 
 	public List<FilmCategory> getFilmCategories() {
 		return this.filmCategories;
 	}
 
 	public void setFilmCategories(List<FilmCategory> filmCategories) {
-		this.filmCategories = filmCategories;
-	}
-
+		 if (filmCategories == null) {
+	            this.filmCategories = new ArrayList<>();  
+	        } else {
+	            this.filmCategories = filmCategories;
+	        }
+	    }
+	
 	public FilmCategory addFilmCategory(FilmCategory filmCategory) {
-		getFilmCategories().add(filmCategory);
-		filmCategory.setFilm(this);
+		 if (this.filmCategories == null) {
+		        this.filmCategories = new ArrayList<>();
+		    }
 
-		return filmCategory;
-	}
+		    this.filmCategories.add(filmCategory);
+		    filmCategory.setFilm(this);  
+		    return filmCategory;
+		}
 
 	public FilmCategory removeFilmCategory(FilmCategory filmCategory) {
 		getFilmCategories().remove(filmCategory);
@@ -224,14 +259,92 @@ public class Film implements Serializable {
 
 		return filmCategory;
 	}
+	
+	public void addCategory(Category item) {
+		FilmCategory filmCategory = new FilmCategory(this, item);
+		filmCategories.add(filmCategory);
+	}
+
+	public void addCategory(int id) {
+		addCategory(new Category(id));
+	}
+
+	public void removeCategory(Category ele) {
+		var filmCategory = filmCategories.stream().filter(item -> item.getCategory().equals(ele)).findFirst();
+		if (filmCategory.isEmpty())
+			return;
+		filmCategories.remove(filmCategory.get());
+	}
+
+	public void removeCategory(int id) {
+		removeCategory(new Category(id));
+	}
 
 	public List<Actor> getActors() {
 		return this.filmActors.stream().map(item -> item.getActor()).toList();
 	}
 
 	public List<Category> getCategories() {
-		return this.filmCategories.stream().map(item -> item.getCategory()).toList();
+		return this.filmCategories.stream()
+                .map(item -> item.getCategory())
+                .collect(Collectors.toList());
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(filmId);
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj instanceof Film o)
+			return filmId == o.filmId;
+		else
+			return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Film [filmId=" + filmId + ", title=" + title + ", rentalDuration=" + rentalDuration + ", rentalRate="
+				+ rentalRate + ", replacementCost=" + replacementCost + ", lastUpdate=" + lastUpdate + ", description="
+				+ description + ", length=" + length + ", rating=" + rating + ", releaseYear=" + releaseYear
+				+ ", language=" + language + ", languageVO=" + languageVO + "]";
+	}
+
+	public Film merge(Film target) {
+		target.title = title;
+		target.description = description;
+		target.releaseYear = releaseYear;
+		target.language = language;
+		target.languageVO = languageVO;
+		target.rentalDuration = rentalDuration;
+		target.rentalRate = rentalRate;
+		target.length = length;
+		target.replacementCost = replacementCost;
+		target.rating = rating;
+		target.getActors().stream().filter(item -> !getActors().contains(item))
+				.forEach(item -> target.removeActor(item));
+		getActors().stream().filter(item -> !target.getActors().contains(item)).forEach(item -> target.addActor(item));
+		target.getCategories().stream().filter(item -> !getCategories().contains(item))
+				.forEach(item -> target.removeCategory(item));
+		getCategories().stream().filter(item -> !target.getCategories().contains(item))
+				.forEach(item -> target.addCategory(item));
+		
+
+		target.filmActors.forEach(o -> o.prePersiste());
+		target.filmCategories.forEach(o -> o.prePersiste());
+		
+		return target;
+	}
+	
+	@PostPersist
+	@PostUpdate
+	public void prePersiste() {
+		System.err.println("prePersiste(): Bug Hibernate");
+		filmActors.forEach(o -> o.prePersiste());
+		filmCategories.forEach(o -> o.prePersiste());
+	}
 
 }
