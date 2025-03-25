@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.domains.contracts.services.FilmsService;
 import com.example.domains.entities.Film;
 import com.example.domains.entities.models.FilmDetailsDTO;
+import com.example.domains.entities.models.FilmEditDTO;
 import com.example.exceptions.BadRequestException;
 import com.example.exceptions.DuplicateKeyException;
 import com.example.exceptions.InvalidDataException;
@@ -34,10 +36,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
+
+
 @RestController
 @RequestMapping("/peliculas/v1")
 @Tag(name = "peliculas-service", description = "Gestión de películas")
 public class FilmsResource {
+	@Autowired
 	private FilmsService filmsService;
 
 	public FilmsResource(FilmsService filmsService) {
@@ -71,9 +76,9 @@ public class FilmsResource {
 	@PostMapping
 	@Operation(summary = "Crea una película")
 	@ApiResponse(responseCode = "201", description = "Película creada")
-	public ResponseEntity<Object> create(@Valid @RequestBody FilmDetailsDTO item)
+	public ResponseEntity<Object> create(@Valid @RequestBody FilmEditDTO item)
 			throws BadRequestException, DuplicateKeyException, InvalidDataException {
-		Film newFilm = filmsService.add(FilmDetailsDTO.toFilm(item));
+		Film newFilm = filmsService.add(FilmEditDTO.from(item));
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(newFilm.getFilmId()).toUri();
 		return ResponseEntity.created(location).build();
@@ -86,11 +91,11 @@ public class FilmsResource {
 	@ApiResponse(responseCode = "404", description = "Película no encontrada")
 	@ApiResponse(responseCode = "422", description = "Datos inválidos proporcionados en el cuerpo de la solicitud")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void update(@PathVariable int id, @Valid @RequestBody FilmDetailsDTO item) throws BadRequestException, NotFoundException, InvalidDataException {
+	public void update(@PathVariable int id, @Valid @RequestBody FilmEditDTO item) throws BadRequestException, NotFoundException, InvalidDataException {
 	    if (item.getFilmId() != id) {
 	        throw new BadRequestException("El id de la película no coincide con el recurso a modificar");
 	    }
-	    filmsService.modify(FilmDetailsDTO.toFilm(item));
+	    filmsService.modify(FilmEditDTO.from(item));
 	}
 
 	@DeleteMapping("/{id}")
