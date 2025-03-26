@@ -72,33 +72,12 @@ public class FilmEditDTO {
 	@Schema(description = "El identificador del idioma original de la película")
 	private Integer languageVOId;
 
-	@Schema(description = "Contenido Adicional")
-	private List<String> specialFeatures = new ArrayList<>();
-
 	@Schema(description = "La lista de identificadores de actores que participan en la película")
 	private List<Integer> actors = new ArrayList<>();
 
 	@Schema(description = "La lista de identificadores de categorías asignadas a la película")
 	@ArraySchema(uniqueItems = true, minItems = 1, maxItems = 3)
 	private List<Integer> categories = new ArrayList<>();
-
-	public FilmEditDTO(int filmId, String description, Integer length, String rating, Short releaseYear,
-			Byte rentalDuration, BigDecimal rentalRate, BigDecimal replacementCost, String title, Integer languageId,
-			Integer languageVOId, List<Integer> actors, List<Integer> categories) {
-		this.filmId = filmId;
-		this.description = description;
-		this.length = length;
-		this.rating = rating;
-		this.releaseYear = releaseYear;
-		this.rentalDuration = rentalDuration;
-		this.rentalRate = rentalRate;
-		this.replacementCost = replacementCost;
-		this.title = title;
-		this.languageId = languageId;
-		this.languageVOId = languageVOId;
-		this.actors = actors;
-		this.categories = categories;
-	}
 
 	public static FilmEditDTO from(Film source) {
 	    return new FilmEditDTO(
