@@ -16,7 +16,7 @@ public class LanguageDTO {
 
     @JsonProperty("id")
     private int languageId;
-    @Schema(name = "Nombre del idioma", example = "English", minLength = 3, maxLength = 20)
+    @Schema(name = "name", example = "English", minLength = 3, maxLength = 20)
     @JsonProperty("name")
     private String name;
 
