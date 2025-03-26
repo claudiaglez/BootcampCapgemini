@@ -15,11 +15,11 @@ public class ActorDTO {
 
 	@JsonProperty("id")
 	private int actorId;
-	@Schema(name = "nombre", example = "Fiona", minLength = 2, maxLength = 45)
-	@JsonProperty("nombre")
+	@Schema(name = "name", example = "Fiona", minLength = 2, maxLength = 45)
+	@JsonProperty("name")
 	private String firstName;
-	@Schema(name = "apellidos", example = "Apple", minLength = 2, maxLength = 45)
-	@JsonProperty("apellidos")
+	@Schema(name = "surname", example = "Apple", minLength = 2, maxLength = 45)
+	@JsonProperty("surname")
 	private String lastName;
 	
 	public static ActorDTO from(Actor source) {
