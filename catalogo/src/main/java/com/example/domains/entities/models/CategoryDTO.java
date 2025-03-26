@@ -13,7 +13,7 @@ public class CategoryDTO {
 
 	@JsonProperty("id")
 	private int id;
-	@Schema(name = "Nombre de la categoría", example = "Cartoon", minLength = 3, maxLength = 25)
+	@Schema(name = "name", example = "Cartoon", minLength = 3, maxLength = 25)
 	@JsonProperty("name")
 	private String name;
 	
