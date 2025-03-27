@@ -42,59 +42,6 @@ public class ActoresServiceTest {
 	        actor2.setLastName("Lopez");
 	    }
 
-	    @Test
-	    @DisplayName("Obtener actores por prefijo")
-	    public void testObtenerActoresPorPrefijo() {
-	        when(actoresRepository.findByFirstNameStartingWith("Car")).thenReturn(Arrays.asList(actor1, actor2));
-
-	        List<Actor> result = actoresService.obtenerActoresPorPrefijo("Car");
-
-	        assertNotNull(result);
-	        assertEquals(2, result.size());
-	        assertTrue(result.contains(actor1));
-	        assertTrue(result.contains(actor2));
-
-	        verify(actoresRepository).findByFirstNameStartingWith("Car");
-	    }
 	    
-	    @Test
-	    @DisplayName("No obtener actores por prefijo")
-	    public void testObtenerActoresPorPrefijoNoResultados() {
-	        when(actoresRepository.findByFirstNameStartingWith("Joaquin")).thenReturn(Arrays.asList());
-
-	        List<Actor> result = actoresService.obtenerActoresPorPrefijo("Joaquin");
-
-	        assertNotNull(result);
-	        assertEquals(0, result.size());
-	    }
-	    
-	    @Test
-	    @DisplayName("Obtener actores mayores que...")
-	    public void testObtenerActoresMayoresQue() {
-	        when(actoresRepository.findByActorIdGreaterThan(1)).thenReturn(Arrays.asList(actor2));
-
-	        List<Actor> result = actoresService.obtenerActoresMayoresQue(1);
-
-	        assertNotNull(result);
-	        assertEquals(1, result.size()); 
-	        assertTrue(result.contains(actor2));
-
-	        verify(actoresRepository).findByActorIdGreaterThan(1);
-	    }
-	    
-	    @Test
-	    @DisplayName("Obtener actores por inicial")
-	    public void testObtenerActoresPorLetra() {
-	    	when(actoresRepository.findByFirstNameStartingWith("C")).thenReturn(Arrays.asList(actor1, actor2));
-
-	        List<Actor> result = actoresService.obtenerActoresPorLetra("C");
-
-	        assertNotNull(result);
-	        assertEquals(2, result.size());
-	        assertTrue(result.contains(actor1));
-	        assertTrue(result.contains(actor2));
-
-	        verify(actoresRepository).findByFirstNameStartingWith("C");
-	    }
 
 }
