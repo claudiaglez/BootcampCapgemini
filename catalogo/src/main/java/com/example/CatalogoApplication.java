@@ -22,36 +22,8 @@ import com.example.domains.entities.Language;
 @EntityScan(basePackages = "com.example.domains.entities")  
 public class CatalogoApplication implements CommandLineRunner {
 
-    @Autowired
-    private ActoresService actoresService;
-    
-    @Autowired
-    private LanguagesService languagesService;
-    
-    @Autowired
-    private CategoriesService categoriesService;
-    
-    @Autowired
-    private FilmsService filmsService;
-
     @Override
     public void run(String... args) throws Exception {
-    	
-        System.out.println("Lista de idiomas:");
-        List<Language> idiomas = languagesService.obtenerIdiomas();  
-        if (idiomas != null) {
-            idiomas.forEach(language -> System.out.println(language.getName()));
-        } else {
-            System.out.println("La lista de idiomas está vacía o no fue encontrada.");
-        }
-        
-        System.out.println("\nIdiomas que terminan con 'n':");
-        List<Language> idiomasQueTerminanConN = languagesService.idiomasAcabanN("n");
-        if (idiomasQueTerminanConN != null && !idiomasQueTerminanConN.isEmpty()) {
-            idiomasQueTerminanConN.forEach(language -> System.out.println(language.getName()));
-        } else {
-            System.out.println("No se encontraron idiomas que terminen con 'n'.");
-        }
 
     }
 

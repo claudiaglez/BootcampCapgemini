@@ -76,22 +76,4 @@ public class LanguagesServiceImpl implements LanguagesService {
 		
 	}
 
-	@Override
-		public List<Language> obtenerIdiomas() {
-			return languagesRepository.findAll();
-	}
-	
-	@Override
-	    public List<Language> idiomasAcabanN(String letra) {
-	        return languagesRepository.findByNameEndingWith(letra);
-	    }
-
-	@Override
-	public List<LanguageDTO> getByProjection(Class<LanguageDTO> class1) {
-		 List<Language> languages = languagesRepository.findAll();
-	        return languages.stream()
-	                      .map(language -> LanguageDTO.from(language)) 
-	                      .collect(Collectors.toList());
-	}
-
 }
