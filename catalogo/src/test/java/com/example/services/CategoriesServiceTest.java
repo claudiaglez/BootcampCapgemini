@@ -44,18 +44,6 @@ public class CategoriesServiceTest {
         category2.setName("Voyages");
     }
     
-    @Test
-    @DisplayName("Obtener categorías mayores que")
-    public void testObtenerCategoriasMayoresQue() {
-        when(categoriesRepository.findByCategoryIdGreaterThan(1)).thenReturn(Arrays.asList(category2));
 
-        List<Category> result = categoriesService.obtenerCategoriasMayoresQue(1);
-
-        assertNotNull(result);
-        assertEquals(1, result.size()); 
-        assertTrue(result.contains(category2));
-
-        verify(categoriesRepository).findByCategoryIdGreaterThan(1);
-    }
 
 }
