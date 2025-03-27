@@ -70,21 +70,6 @@ public class ActoresServiceImpl implements ActoresService {
     }
 
     @Override
-    public List<Actor> obtenerActoresPorPrefijo(String prefijo) {
-        return actoresRepository.findByFirstNameStartingWith(prefijo);
-    }
-
-    @Override
-    public List<Actor> obtenerActoresMayoresQue(int id) {
-        return actoresRepository.findByActorIdGreaterThan(id);
-    }
-
-    @Override
-    public List<Actor> obtenerActoresPorLetra(String letra) {
-        return actoresRepository.findByFirstNameStartingWith(letra);
-    }
-
-    @Override
     public List<ActorDTO> getByProjection(Class<ActorDTO> class1) {
         List<Actor> actores = actoresRepository.findAll();
         return actores.stream()
