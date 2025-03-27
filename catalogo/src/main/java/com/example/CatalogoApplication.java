@@ -53,16 +53,6 @@ public class CatalogoApplication implements CommandLineRunner {
             System.out.println("No se encontraron idiomas que terminen con 'n'.");
         }
 
-        System.out.println("\nPelículas ordenadas por fecha de lanzamiento:");
-        Short fechaLanzamiento = 2006;
-        List<Film> peliculasPorFecha = filmsService.obtenerPeliculasPorFechaLanzamiento(fechaLanzamiento);
-        peliculasPorFecha.forEach(film -> System.out.println(film.getTitle()));
-        
-        System.out.println("\nPelículas con 'Dinosaur' en el título:");
-        String palabra = "Dinosaur"; 
-        List<Film> peliculasFiltradasPorTitulo = filmsService.obtenerPeliculasPorTitulo(palabra);
-        peliculasFiltradasPorTitulo.forEach(film -> System.out.println(film.getTitle()));
-
     }
 
     public static void main(String[] args) {

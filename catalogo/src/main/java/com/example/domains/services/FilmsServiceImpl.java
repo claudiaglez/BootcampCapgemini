@@ -102,16 +102,6 @@ public class FilmsServiceImpl implements FilmsService {
 	}
 
 	@Override
-	public List<Film> obtenerPeliculasPorFechaLanzamiento(Short fecha) {
-		return filmsRepository.findByReleaseYear(fecha);
-	}
-
-	@Override
-	public List<Film> obtenerPeliculasPorTitulo(String titulo) {
-		return filmsRepository.findByTitleContainingIgnoreCase(titulo);
-	}
-
-	@Override
 	public List<FilmDetailsDTO> getByProjection(Class<FilmDetailsDTO> class1) {
 		 List<Film> films = filmsRepository.findAll();
 	        return films.stream()
