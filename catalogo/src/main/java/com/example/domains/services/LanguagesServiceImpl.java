@@ -75,5 +75,14 @@ public class LanguagesServiceImpl implements LanguagesService {
 		languagesRepository.deleteById(id);
 		
 	}
+	
+	@Override
+ 	public List<LanguageDTO> getByProjection(Class<LanguageDTO> class1) {
+ 		 List<Language> languages = languagesRepository.findAll();
+ 	        return languages.stream()
+ 	                      .map(language -> LanguageDTO.from(language)) 
+ 	                      .collect(Collectors.toList());
+ 	}
+
 
 }

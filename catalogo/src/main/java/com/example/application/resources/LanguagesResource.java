@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.example.domains.contracts.services.LanguagesService;
+import com.example.domains.entities.Language;
 import com.example.domains.entities.models.CategoryDTO;
 import com.example.domains.entities.models.LanguageDTO;
 import com.example.exceptions.BadRequestException;
@@ -42,10 +43,11 @@ public class LanguagesResource {
 	}
 	
 	@GetMapping
-	@Operation(summary = "Obtiene todos los idiomas")
-	public List<LanguageDTO> getAll() {
-		return languagesService.getByProjection(LanguageDTO.class);
-	}
+ 	@Operation(summary = "Obtiene todos los idiomas")
+ 	public List<LanguageDTO> getAll() {
+ 		return languagesService.getByProjection(LanguageDTO.class);
+ 	}
+ 
 	
 	@GetMapping(path = "/{id}")
 	@Operation(summary = "Obtiene un idioma por su id")
