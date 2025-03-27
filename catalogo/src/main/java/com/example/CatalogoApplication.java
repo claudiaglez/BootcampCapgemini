@@ -52,11 +52,7 @@ public class CatalogoApplication implements CommandLineRunner {
         } else {
             System.out.println("No se encontraron idiomas que terminen con 'n'.");
         }
-        
-        System.out.println("\nCategorías con ID mayor a 3:");
-        List<Category> categoriasMayoresQue = categoriesService.obtenerCategoriasMayoresQue(3);
-        categoriasMayoresQue.forEach(category -> System.out.println(category.getName()));
-        
+
         System.out.println("\nPelículas ordenadas por fecha de lanzamiento:");
         Short fechaLanzamiento = 2006;
         List<Film> peliculasPorFecha = filmsService.obtenerPeliculasPorFechaLanzamiento(fechaLanzamiento);

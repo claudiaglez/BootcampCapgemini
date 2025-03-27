@@ -75,11 +75,6 @@ public class CategoriesServiceImpl implements CategoriesService {
 		categoriesRepository.deleteById(id);
 		
 	}
-	
-	 @Override
-	    public List<Category> obtenerCategoriasMayoresQue(int id) {
-	        return categoriesRepository.findByCategoryIdGreaterThan(id);
-	    }
 
 	@Override
 	public List<CategoryDTO> getByProjection(Class<CategoryDTO> class1) {

@@ -11,8 +11,6 @@ import com.example.domains.entities.models.ActorDTO;
 import com.example.domains.entities.models.CategoryDTO;
 
 public interface CategoriesService extends DomainService<Category, Integer> {
-	
-	List<Category> obtenerCategoriasMayoresQue(int id);
 
 	List<CategoryDTO> getByProjection(Class<CategoryDTO> class1);
 
