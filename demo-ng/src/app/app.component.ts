@@ -1,10 +1,13 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { LoggerService } from '@my/core';
+import { NotificationComponent } from './main/notification/notification.component';
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [CommonModule, RouterOutlet, NotificationComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -17,4 +20,5 @@ export class AppComponent {
     out.info('Es un info')
     out.log('Es un log')
   }
+
 }
