@@ -27,8 +27,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Schema(name = "Pelicula (Editar)", description = "Version editable de las películas")
-@Data
-@AllArgsConstructor
+@Data 
+@AllArgsConstructor 
 @NoArgsConstructor
 public class FilmEditDTO {
 
@@ -80,63 +80,41 @@ public class FilmEditDTO {
 	private List<Integer> categories = new ArrayList<>();
 
 	public static FilmEditDTO from(Film source) {
-	    return new FilmEditDTO(
-	        source.getFilmId(),
-	        source.getDescription(),
-	        source.getLength(),
-	        source.getRating(),
-	        source.getReleaseYear(),
-	        source.getRentalDuration(),
-	        source.getRentalRate(),
-	        source.getReplacementCost(),
-	        source.getTitle(),
-	        source.getLanguage() == null ? null : source.getLanguage().getLanguageId(),
-	        source.getLanguageVO() == null ? null : source.getLanguageVO().getLanguageId(),
-	        source.getActors().stream()
-	            .map(actor -> actor.getActorId())
-	            .collect(Collectors.toList()),
-	        source.getCategories().stream()
-	            .map(category -> category.getCategoryId())
-	            .collect(Collectors.toList())
-	    );
+		return new FilmEditDTO(
+				source.getFilmId(), 
+				source.getDescription(),
+				source.getLength(),
+				source.getRating() == null ? null : source.getRating().getValue(),
+				source.getReleaseYear(),
+				source.getRentalDuration(),
+				source.getRentalRate(),
+				source.getReplacementCost(),
+				source.getTitle(),
+				source.getLanguage() == null ? null : source.getLanguage().getLanguageId(),
+				source.getLanguageVO() == null ? null : source.getLanguageVO().getLanguageId(),
+				source.getActors().stream().map(item -> item.getActorId())
+					.collect(Collectors.toList()),
+				source.getCategories().stream().map(item -> item.getCategoryId())
+					.collect(Collectors.toList())
+				);
 	}
-
-
 	public static Film from(FilmEditDTO source) {
-	    Film rslt = new Film();
-	    rslt.setFilmId(source.getFilmId());
-	    rslt.setTitle(source.getTitle());
-	    rslt.setDescription(source.getDescription());
-	    rslt.setReleaseYear(source.getReleaseYear());
-	    Language language = new Language();  
-	    language.setLanguageId(source.getLanguageId());  
-	    rslt.setLanguage(language);  
-
-	    if (source.getLanguageVOId() != null) {
-	        Language languageVO = new Language();
-	        languageVO.setLanguageId(source.getLanguageVOId());
-	        rslt.setLanguageVO(languageVO);
-	    }
-	    rslt.setRentalDuration(source.getRentalDuration());
-	    rslt.setRentalRate(source.getRentalRate());
-	    rslt.setLength(source.getLength());
-	    rslt.setReplacementCost(source.getReplacementCost());
-	    rslt.setRating(source.getRating()); 
-	    source.getActors().forEach(actorId -> {
-	        FilmActor filmActor = new FilmActor();
-	        filmActor.setActor(new Actor(actorId));  
-	        filmActor.setFilm(rslt); 
-	        rslt.addFilmActor(filmActor);  
-	    });
-
-	    source.getCategories().forEach(categoryId -> {
-	        FilmCategory filmCategory = new FilmCategory();
-	        filmCategory.setCategory(new Category(categoryId));  
-	        filmCategory.setFilm(rslt);
-	        rslt.addFilmCategory(filmCategory);
-	    });
-	    return rslt;
+		Film rslt = new Film(
+				source.getFilmId(), 
+				source.getTitle(),
+				source.getDescription(),
+				source.getReleaseYear(),
+				source.getLanguageId() == null ? null : new Language(source.getLanguageId()),
+				source.getLanguageVOId() == null ? null : new Language(source.getLanguageVOId()),
+				source.getRentalDuration(),
+				source.getRentalRate(),
+				source.getLength(),
+				source.getReplacementCost(),
+				source.getRating() == null ? null : Film.Rating.getEnum(source.getRating())
+				);
+		source.getActors().stream().forEach(item -> rslt.addActor(item));
+		source.getCategories().stream().forEach(item -> rslt.addCategory(item));
+		return rslt;
 	}
-
 
 }
