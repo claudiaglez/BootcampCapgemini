@@ -9,6 +9,11 @@ import jakarta.validation.constraints.Size;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
+
+import com.example.domains.core.entities.AbstractEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
@@ -18,12 +23,13 @@ import java.util.List;
 @Entity
 @Table(name="category")
 @NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
-public class Category implements Serializable {
+public class Category extends AbstractEntity<Category> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="category_id", unique=true, nullable=false)
+	@JsonProperty("id")
 	private int categoryId;
 
 	@Column(name="last_update", insertable=false, updatable=false, nullable=false)
@@ -33,7 +39,13 @@ public class Category implements Serializable {
 	@NotBlank(message = "El nombre de la categoría no puede estar vacío")
 	@Size(min = 3, max = 25, message = "El nombre de la categoría debe tener entre 3 y 25 caracteres")
 	@Column(nullable=false, length=25)
+	@JsonProperty("categoria")
 	private String name;
+	
+	//bi-directional many-to-one association to FilmCategory
+		@OneToMany(mappedBy="category")
+		@JsonIgnore
+		private List<FilmCategory> filmCategories;
 
 	public Category() {
 	}
@@ -71,5 +83,48 @@ public class Category implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public List<FilmCategory> getFilmCategories() {
+		return this.filmCategories;
+	}
+
+	public void setFilmCategories(List<FilmCategory> filmCategories) {
+		this.filmCategories = filmCategories;
+	}
+
+	public FilmCategory addFilmCategory(FilmCategory filmCategory) {
+		getFilmCategories().add(filmCategory);
+		filmCategory.setCategory(this);
+
+		return filmCategory;
+	}
+
+	public FilmCategory removeFilmCategory(FilmCategory filmCategory) {
+		getFilmCategories().remove(filmCategory);
+		filmCategory.setCategory(null);
+
+		return filmCategory;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(categoryId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj instanceof Category o)
+			return categoryId == o.categoryId;
+		else
+			return false;
+	}
+
+	@Override
+	public String toString() {
+		return "Category [categoryId=" + categoryId + ", name=" + name + ", lastUpdate=" + lastUpdate + "]";
+	}
+
 
 }
