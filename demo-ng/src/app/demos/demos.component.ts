@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, computed, OnDestroy, OnInit, signal } from '@angular/core';
 import { NotificationService, NotificationType } from '../common-services';
 import { Unsubscribable } from 'rxjs';
 
@@ -9,8 +9,57 @@ import { Unsubscribable } from 'rxjs';
   styleUrl: './demos.component.css'
 })
 export class DemosComponent implements OnInit, OnDestroy {
+  private fecha = new Date ('2025-03-31');
+  public readonly nombre = signal<string>('mundo'); 
+  public readonly fontSize = signal<number>(24); 
+  public readonly listado = signal([
+    { id: 1, nombre: 'Madrid'},
+    { id: 2, nombre: 'OVIEDO'},
+    { id: 3, nombre: 'barcelona'},
+    { id: 4, nombre: 'ciudad Real'},
+  ]); 
+  public readonly idProvincia = signal<number>(2); 
 
+  public readonly resultado = signal<string>('');
+  public readonly visible = signal<boolean>(true);
+  public readonly invisible = computed<boolean>(() => !this.visible());
+  public readonly estetica = signal({ importante: true, urgente: true, error: false }); 
+
+  
   constructor(public vm: NotificationService) { }
+
+  public get Fecha(): string {
+    return this.fecha.toISOString();
+  }
+
+  public set Fecha(value: string) {
+    this.fecha = new Date(value);
+  }
+
+  saluda() {
+    this.resultado.set(`Hola ${this.nombre()}`);
+  }
+
+  despide() {
+    this.resultado.set(`Adiós ${this.nombre()}`);
+  }
+
+  di(algo: string) {
+    this.resultado.set(`Dice ${algo}`);
+  }
+
+  cambia() {
+    this.visible.update(valor => !valor);
+    this.estetica.update(valor => ({...valor, importante: !valor.importante }));
+  }
+
+  add(provincia: string) {
+    const id = this.listado()[this.listado().length -1].id + 1;
+    this.listado.update(valor => [...valor, {id, nombre: provincia}]); //Cambiar los valores teniendo en cuenta el valor anterior.
+    this.idProvincia.set(id); // Aquí "machacas" los datos anteriores.
+  }
+
+  calcula(a: number, b: number) { return a + b; }
 
   private suscriptor: Unsubscribable | undefined;
 
