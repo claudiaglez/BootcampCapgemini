@@ -15,11 +15,11 @@ import { NotificationModalComponent } from './main';
 export class AppComponent {
   title = 'world';
 
-  constructor(out: LoggerService) {
-    out.error('Es un error')
-    out.warn('Es un warn')
-    out.info('Es un info')
-    out.log('Es un log')
-  }
+  // constructor(out: LoggerService) {
+  //   out.error('Es un error')
+  //   out.warn('Es un warn')
+  //   out.info('Es un info')
+  //   out.log('Es un log')
+  // }
 
 }
