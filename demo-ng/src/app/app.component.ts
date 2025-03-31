@@ -1,14 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { LoggerService } from '@my/core';
+// import { LoggerService } from '@my/core';
 import { DemosComponent } from './demos/demos.component';
 import { NotificationModalComponent } from './main';
+import { HomeComponent } from "./main/home/home.component";
 
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, NotificationModalComponent, DemosComponent,],
+  imports: [CommonModule, RouterOutlet, NotificationModalComponent, DemosComponent, HomeComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -21,5 +22,6 @@ export class AppComponent {
   //   out.info('Es un info')
   //   out.log('Es un log')
   // }
+
 
 }
