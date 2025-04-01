@@ -3,10 +3,11 @@ import { NotificationService, NotificationType } from '../common-services';
 import { Unsubscribable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { SizerComponent } from '@my/core';
 
 @Component({
   selector: 'app-demos',
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, SizerComponent],
   templateUrl: './demos.component.html',
   styleUrl: './demos.component.css'
 })

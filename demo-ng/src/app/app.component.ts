@@ -2,14 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 // import { LoggerService } from '@my/core';
-import { DemosComponent } from './demos/demos.component';
 import { NotificationModalComponent } from './main';
-import { HomeComponent } from "./main/home/home.component";
+import { FormulariosComponent } from './ejemplos/formularios/formularios.component';
 
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, NotificationModalComponent, DemosComponent, HomeComponent],
+  imports: [CommonModule, RouterOutlet, NotificationModalComponent, FormulariosComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
