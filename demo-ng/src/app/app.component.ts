@@ -4,11 +4,12 @@ import { RouterOutlet } from '@angular/router';
 // import { LoggerService } from '@my/core';
 import { NotificationModalComponent } from './main';
 import { FormulariosComponent } from './ejemplos/formularios/formularios.component';
+import { HeaderComponent } from "./header/header.component";
 
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, NotificationModalComponent, FormulariosComponent],
+  imports: [CommonModule, RouterOutlet, NotificationModalComponent, FormulariosComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
