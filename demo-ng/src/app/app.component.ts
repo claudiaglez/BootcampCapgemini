@@ -5,11 +5,12 @@ import { RouterOutlet } from '@angular/router';
 import { NotificationModalComponent } from './main';
 import { FormulariosComponent } from './ejemplos/formularios/formularios.component';
 import { HeaderComponent } from "./header/header.component";
+import { AjaxWaitComponent } from './main/ajax-wait';
 
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, RouterOutlet, NotificationModalComponent, FormulariosComponent, HeaderComponent],
+  imports: [CommonModule, RouterOutlet, NotificationModalComponent, FormulariosComponent, HeaderComponent, AjaxWaitComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
