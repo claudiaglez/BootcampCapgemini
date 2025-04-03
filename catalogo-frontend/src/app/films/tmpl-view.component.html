@@ -1,0 +1,54 @@
+<h1 class="text-center mb-4">Películas</h1>
+
+@if(VM.Elemento) {
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <dl class="row">
+        <dt class="col-sm-3">Film ID:</dt>
+        <dd class="col-sm-9">{{VM.Elemento.filmId}}</dd>
+
+        <dt class="col-sm-3">Title:</dt>
+        <dd class="col-sm-9">{{VM.Elemento.title}}</dd>
+
+        <dt class="col-sm-3">Description:</dt>
+        <dd class="col-sm-9">{{VM.Elemento.description}}</dd>
+
+        <dt class="col-sm-3">Actors:</dt>
+        <dd class="col-sm-9">{{VM.Elemento.actors}}</dd>
+
+        <dt class="col-sm-3">Length:</dt>
+        <dd class="col-sm-9">{{VM.Elemento.length}}</dd>
+
+        <dt class="col-sm-3">Rating:</dt>
+        <dd class="col-sm-9">{{VM.Elemento.rating}}</dd>
+
+        <dt class="col-sm-3">Release Year:</dt>
+        <dd class="col-sm-9">{{VM.Elemento.releaseYear}}</dd>
+
+        <dt class="col-sm-3">Rental Rate:</dt>
+        <dd class="col-sm-9">{{VM.Elemento.rentalRate}}</dd>
+
+        <dt class="col-sm-3">Replacement Cost:</dt>
+        <dd class="col-sm-9">{{VM.Elemento.replacementCost}}</dd>
+
+        <dt class="col-sm-3">Language:</dt>
+        <dd class="col-sm-9">{{VM.Elemento.language}}</dd>
+
+        <dt class="col-sm-3">Language VO:</dt>
+        <dd class="col-sm-9">{{VM.Elemento.languageVO}}</dd>
+
+        <dt class="col-sm-3">Categories:</dt>
+        <dd class="col-sm-9">{{VM.Elemento.categories}}</dd>
+      </dl>
+
+      <div class="d-flex justify-content-center">
+        <input class="btn btn-secondary" type="button" value="Volver" (click)="VM.cancel()">
+      </div>
+    </div>
+  </div>
+} @else {
+  <div class="alert alert-warning text-center" role="alert">
+    <h2>Sin datos disponibles</h2>
+  </div>
+}
+
