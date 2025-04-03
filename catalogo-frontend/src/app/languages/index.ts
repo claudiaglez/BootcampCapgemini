@@ -1,0 +1,1 @@
+export * from './languages-componente.component';

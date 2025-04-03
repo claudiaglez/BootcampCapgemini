@@ -8,8 +8,8 @@ import { Subscription } from 'rxjs';
 import { ErrorMessagePipe } from '../lib/my-core';
 
 @Component({
-  selector: 'app-Categories',
-  templateUrl: './tmpl-anfitrion.component.html',
+  selector: 'app-categories',
+  templateUrl:'./tmpl-anfitrion.component.html',
   styleUrls: ['./componente.component.css'],
   imports: [
   forwardRef(() => CategoriesAddComponent),
@@ -26,7 +26,7 @@ import { ErrorMessagePipe } from '../lib/my-core';
   }
 
   @Component({
-    selector: 'app-Categories-list',
+    selector: 'app-categories-list',
     templateUrl: './tmpl-list.component.html',
     styleUrls: ['./componente.component.css'],
     imports: [RouterLink]
@@ -40,7 +40,7 @@ import { ErrorMessagePipe } from '../lib/my-core';
    
 
    @Component({
-    selector: 'app-Categories-add',
+    selector: 'app-categories-add',
     templateUrl: './tmpl-form.component.html',
     styleUrls: ['./componente.component.css'],
     imports: [FormsModule, TypeValidator,ErrorMessagePipe],
@@ -54,7 +54,7 @@ import { ErrorMessagePipe } from '../lib/my-core';
     }
     
     @Component({
-      selector: 'app-Categories-edit',
+      selector: 'app-categories-edit',
       templateUrl: './tmpl-form.component.html',
       styleUrls: ['./componente.component.css'],
       imports: [FormsModule, TypeValidator,ErrorMessagePipe],
@@ -82,7 +82,7 @@ import { ErrorMessagePipe } from '../lib/my-core';
       }
       
       @Component({
-        selector: 'app-Categories-view',
+        selector: 'app-categories-view',
         templateUrl: './tmpl-view.component.html',
         styleUrls: ['./componente.component.css'],
         imports: [DatePipe],
@@ -99,7 +99,7 @@ import { ErrorMessagePipe } from '../lib/my-core';
         }
         }
         }
-   export const Categories_COMPONENTES = [
+   export const CATEGORIES_COMPONENTES = [
     CategoriesComponent, CategoriesListComponent, CategoriesAddComponent,
     CategoriesEditComponent, CategoriesViewComponent,
    ];

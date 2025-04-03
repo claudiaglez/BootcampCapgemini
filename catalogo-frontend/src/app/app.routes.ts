@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { ActorsAddComponent, ActorsEditComponent, ActorsListComponent, ActorsViewComponent } from './actors';
 import { CategoriesAddComponent, CategoriesListComponent, CategoriesViewComponent } from './categories';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { LanguagesAddComponent, LanguagesEditComponent, LanguagesListComponent, LanguagesViewComponent } from './languages';
 
 export const routes: Routes = [
     { path: 'actors', children: [
@@ -18,6 +19,13 @@ export const routes: Routes = [
             { path: ':id', component: CategoriesViewComponent},
             { path: ':id/:kk', component: CategoriesViewComponent},
             ]},
+    { path: 'languages', children: [
+                { path: '', component: LanguagesListComponent},
+                { path: 'add', component: LanguagesAddComponent},
+                { path: ':id/edit', component: LanguagesAddComponent},
+                { path: ':id', component: LanguagesViewComponent},
+                { path: ':id/:kk', component: LanguagesViewComponent},
+                ]},
 
     { path: "**", component: PageNotFoundComponent }
     ]

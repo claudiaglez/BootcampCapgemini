@@ -1,0 +1,54 @@
+<h1>Editar Idioma</h1>
+@if(VM.Elemento) {
+<form #miForm="ngForm" class="row gy-2 gx-2 align-items-start">
+  @if (VM.Modo==='add') {
+
+  } @else {
+  <div class="col-md-2">
+    <label class="form-label-sm" for="id">Nombre:</label>
+    <output class="d-block" [textContent]="VM.Elemento.id"></output>
+  </div>
+  }
+
+  <div class="form-floating col-md-4">
+    <input
+      class="form-control"
+      [class.is-invalid]="name.invalid"
+      type="text"
+      name="nombre"
+      id="nombre"
+      [(ngModel)]="VM.Elemento.name"
+      #name="ngModel"
+      required
+      minlength="2"
+      maxlength="50"
+      placeholder=" "
+    />
+    <label for="nombre">Nombre:</label>
+    <output class="invalid-feedback" [hidden]="name.valid">{{
+      name.errors | errormsg
+    }}</output>
+  </div>
+  <div class="col-md-4 col-lg-2">
+    <div class="ms-2 form-check form-check-inline form-switch">
+    </div>
+  </div>
+  <div class="mt-2">
+    <input
+      type="button"
+      class="btn btn-success"
+      value="Enviar"
+      (click)="VM.send()"
+      [disabled]="miForm.invalid"
+    />
+    <input
+      type="button"
+      class="btn btn-info"
+      value="Volver"
+      (click)="VM.cancel()"
+    />
+  </div>
+</form>
+} @else {
+<h2>Sin datos</h2>
+}

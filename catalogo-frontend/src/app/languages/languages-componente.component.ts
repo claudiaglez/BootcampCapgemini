@@ -1,6 +1,6 @@
 import { Component, forwardRef, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { ActorsViewModelService } from './actors-servicios.service';
-import { DatePipe, JsonPipe } from '@angular/common';
+import { LanguagesViewModelService } from './languages-servicios.service';
+import { DatePipe} from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TypeValidator } from '../lib/my-core/directives/mis-validadores-directive'
 import { ActivatedRoute, ParamMap, Router, RouterLink } from '@angular/router';
@@ -8,63 +8,63 @@ import { Subscription } from 'rxjs';
 import { ErrorMessagePipe } from '../lib/my-core';
 
 @Component({
-  selector: 'app-actors',
+  selector: 'app-languages',
   templateUrl: './tmpl-anfitrion.component.html',
   styleUrls: ['./componente.component.css'],
   imports: [
-  forwardRef(() => ActorsAddComponent),
-  forwardRef(() => ActorsEditComponent),
-  forwardRef(() => ActorsViewComponent),
-  forwardRef(() => ActorsListComponent),
+  forwardRef(() => LanguagesAddComponent),
+  forwardRef(() => LanguagesEditComponent),
+  forwardRef(() => LanguagesViewComponent),
+  forwardRef(() => LanguagesListComponent),
   ],
   })
-  export class ActorsComponent implements OnInit, OnDestroy {
-   constructor(protected vm: ActorsViewModelService) { }
-   public get VM(): ActorsViewModelService { return this.vm; }
+  export class LanguagesComponent implements OnInit, OnDestroy {
+   constructor(protected vm: LanguagesViewModelService) { }
+   public get VM(): LanguagesViewModelService { return this.vm; }
    ngOnInit(): void { this.vm.list(); }
   ngOnDestroy(): void { this.vm.clear(); }
   }
 
   @Component({
-    selector: 'app-actors-list',
+    selector: 'app-languages-list',
     templateUrl: './tmpl-list.component.html',
     styleUrls: ['./componente.component.css'],
     imports: [RouterLink]
    })
-   export class ActorsListComponent implements OnInit, OnDestroy {
-    constructor(protected vm: ActorsViewModelService) { }
-    public get VM(): ActorsViewModelService { return this.vm; }
+   export class LanguagesListComponent implements OnInit, OnDestroy {
+    constructor(protected vm: LanguagesViewModelService) { }
+    public get VM(): LanguagesViewModelService { return this.vm; }
     ngOnInit(): void { this.vm.list(); }
    ngOnDestroy(): void { this.vm.clear(); }
    }
    
 
    @Component({
-    selector: 'app-actors-add',
+    selector: 'app-languages-add',
     templateUrl: './tmpl-form.component.html',
     styleUrls: ['./componente.component.css'],
-    imports: [FormsModule, TypeValidator,ErrorMessagePipe,JsonPipe],
+    imports: [FormsModule, TypeValidator,ErrorMessagePipe],
     })
-    export class ActorsAddComponent implements OnInit {
-    constructor(protected vm: ActorsViewModelService) { }
-    public get VM(): ActorsViewModelService { return this.vm; }
+    export class LanguagesAddComponent implements OnInit {
+    constructor(protected vm: LanguagesViewModelService) { }
+    public get VM(): LanguagesViewModelService { return this.vm; }
     ngOnInit(): void {
     this.vm.add();
     }
     }
     
     @Component({
-      selector: 'app-actors-edit',
+      selector: 'app-languages-edit',
       templateUrl: './tmpl-form.component.html',
       styleUrls: ['./componente.component.css'],
-      imports: [FormsModule, TypeValidator,ErrorMessagePipe,JsonPipe],
+      imports: [FormsModule, TypeValidator,ErrorMessagePipe],
       })
       
-      export class ActorsEditComponent implements OnInit, OnDestroy {
+      export class LanguagesEditComponent implements OnInit, OnDestroy {
       private obs$?: Subscription;
-      constructor(protected vm: ActorsViewModelService,
+      constructor(protected vm: LanguagesViewModelService,
       protected route: ActivatedRoute, protected router: Router) { }
-      public get VM(): ActorsViewModelService { return this.vm; }
+      public get VM(): LanguagesViewModelService { return this.vm; }
       ngOnInit(): void {
       this.obs$ = this.route.paramMap.subscribe(
       (params: ParamMap) => {
@@ -82,15 +82,15 @@ import { ErrorMessagePipe } from '../lib/my-core';
       }
       
       @Component({
-        selector: 'app-actors-view',
+        selector: 'app-languages-view',
         templateUrl: './tmpl-view.component.html',
         styleUrls: ['./componente.component.css'],
         imports: [DatePipe],
         })
-        export class ActorsViewComponent implements OnChanges {
+        export class LanguagesViewComponent implements OnChanges {
         @Input() id?: string;
-        constructor(protected vm: ActorsViewModelService, protected router: Router) { }
-        public get VM(): ActorsViewModelService { return this.vm; }
+        constructor(protected vm: LanguagesViewModelService, protected router: Router) { }
+        public get VM(): LanguagesViewModelService { return this.vm; }
         ngOnChanges(changes: SimpleChanges): void {
         if (this.id) {
         this.vm.view(+this.id);
@@ -99,15 +99,12 @@ import { ErrorMessagePipe } from '../lib/my-core';
         }
         }
         }
-   export const ACTORS_COMPONENTES = [
-    ActorsComponent, ActorsListComponent, ActorsAddComponent,
-    ActorsEditComponent, ActorsViewComponent,
+   export const Languages_COMPONENTES = [
+    LanguagesComponent, LanguagesListComponent, LanguagesAddComponent,
+    LanguagesEditComponent, LanguagesViewComponent,
    ];
    
 
-
-   
-  
 
    
   

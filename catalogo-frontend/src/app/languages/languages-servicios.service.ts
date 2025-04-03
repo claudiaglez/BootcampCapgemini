@@ -1,24 +1,25 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { HttpContextToken } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NotificationService } from '../common-services';
-import { RESTDAOService } from '../code-base/daobase.class';
 import { ModoCRUD } from '../code-base/tipos.class';
+import { RESTDAOService } from '../code-base/daobase.class';
+
 
 @Injectable({
   providedIn: 'root',
 })
-export class ActorsViewModelService {
+export class LanguagesViewModelService {
   protected modo: ModoCRUD = 'list';
   protected listado: any[] = [];
   protected elemento: any = {};
   protected idOriginal: any = null;
-  protected listURL = '/actors';
+  protected listURL = '/languages';
 
   constructor(
     protected notify: NotificationService,
-    protected dao: ActorsDAOService,
+    protected dao: LanguagesDAOService,
     protected router: Router
   ) {}
 
@@ -133,11 +134,12 @@ export class ActorsViewModelService {
 
 export const AUTH_REQUIRED = new HttpContextToken<boolean>(() => false);
 
+
 @Injectable({
   providedIn: 'root',
 })
-export class ActorsDAOService extends RESTDAOService<any, any> {
+export class LanguagesDAOService extends RESTDAOService<any, any> {
   constructor() {
-    super('actores/v1');
+    super('idiomas/v1');
   }
 }
