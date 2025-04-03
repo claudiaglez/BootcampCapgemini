@@ -1,4 +1,4 @@
-<h1>Editar Película</h1>
+<h1>{{ VM.Modo === 'add' ? 'Añadir Película' : 'Editar Película' }}</h1>
 @if(VM.Elemento) {
 <form #miForm="ngForm" class="row gy-2 gx-2 align-items-start">
   @if (VM.Modo==='add') {
