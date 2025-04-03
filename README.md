@@ -169,6 +169,7 @@ Make sure the database container is properly configured and running before inter
 
 ## 📂 Project Structure
 
+```bash
 📦 BootcampCapgemini
 ├── 📂 catalogo/                  # Principal Backend in Spring Boot
 │   ├── 📂 src/                    # Source code
@@ -189,7 +190,7 @@ Make sure the database container is properly configured and running before inter
 ├── 📂 ws-soap-consume/            # Client consuming the SOAP service
 ├── 📄 [README.md](http://readme.md/)                   # Repository documentation
 └── 📄 .gitignore                   # Files ignored by Git
-
+```
 ## :open_hands: Contributions
 
 Do you have any suggestion? Please, feel free to contact me or open an issue or pull request :star_struck:
