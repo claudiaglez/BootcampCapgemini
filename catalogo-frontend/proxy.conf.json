@@ -1,8 +1,27 @@
 {
-  "/actores/v1": {
+  "/actores/**": {
     "target": "http://localhost:8080",
     "secure": false,
     "logLevel": "debug"
+  },
+
+  "/categorias/**": {
+    "target": "http://localhost:8080",
+    "secure": false,
+    "logLevel": "debug"
+  },
+
+  "/auth": {
+    "target": "http://localhost:8091",
+    "pathRewrite": { "^/auth": "/" },
+    "secure": false,
+    "logLevel": "debug"
+  },
+  "/api": {
+    "target": "http://localhost:4200",
+    "secure": false,
+    "logLevel": "debug"
   }
+
 }
   
