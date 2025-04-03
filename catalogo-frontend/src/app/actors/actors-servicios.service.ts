@@ -5,8 +5,8 @@ import { HttpContextToken } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { Router } from '@angular/router';
 import { NotificationService } from '../common-services';
-
-export type ModoCRUD = 'list' | 'add' | 'edit' | 'view' | 'delete';
+import { RESTDAOService } from '../code-base/daobase.class';
+import { ModoCRUD } from '../code-base/tipos.class';
 
 @Injectable({
   providedIn: 'root',
@@ -134,34 +134,6 @@ export class ActorsViewModelService {
 }
 
 export const AUTH_REQUIRED = new HttpContextToken<boolean>(() => false);
-
-export abstract class RESTDAOService<T, K> {
-  protected baseUrl = environment.apiUrl;
-  protected http: HttpClient = inject(HttpClient);
-
-  constructor(entidad: string, protected option = {}) {
-  }
-
-  query(): Observable<T[]> {
-    return this.http.get<T[]>(this.baseUrl, this.option);
-  }
-
-  get(id: K): Observable<T> {
-    return this.http.get<T>(`${this.baseUrl}/${id}`, this.option);
-  }
-
-  add(item: T): Observable<T> {
-    return this.http.post<T>(this.baseUrl, item, this.option);
-  }
-
-  change(id: K, item: T): Observable<T> {
-    return this.http.put<T>(`${this.baseUrl}/${id}`, item, this.option);
-  }
-
-  remove(id: K): Observable<T> {
-    return this.http.delete<T>(`${this.baseUrl}/${id}`, this.option);
-  }
-}
 
 @Injectable({
   providedIn: 'root',

@@ -43,7 +43,7 @@ import { ErrorMessagePipe } from '../lib/my-core';
     selector: 'app-actors-add',
     templateUrl: './tmpl-form.component.html',
     styleUrls: ['./componente.component.css'],
-    imports: [FormsModule, TypeValidator,ErrorMessagePipe,JsonPipe],
+    imports: [FormsModule, TypeValidator,ErrorMessagePipe],
     })
     export class ActorsAddComponent implements OnInit {
     constructor(protected vm: ActorsViewModelService) { }
@@ -57,7 +57,7 @@ import { ErrorMessagePipe } from '../lib/my-core';
       selector: 'app-actors-edit',
       templateUrl: './tmpl-form.component.html',
       styleUrls: ['./componente.component.css'],
-      imports: [FormsModule, TypeValidator,ErrorMessagePipe,JsonPipe],
+      imports: [FormsModule, TypeValidator,ErrorMessagePipe],
       })
       
       export class ActorsEditComponent implements OnInit, OnDestroy {
