@@ -18,9 +18,9 @@ This repository contains the projects developed during the Capgemini Bootcamp, f
 Make sure you have the following components installed:
 
 - **Java Development Kit (JDK) 17 or higher**.
-- Maven** for dependency management and building Java projects.
-- Node.js** and **npm** for Angular projects.
-- Angular CLI** if you work with Angular projects.
+- **Maven** for dependency management and building Java projects.
+- **Node.js** and **npm** for Angular projects.
+- **Angular CLI** if you work with Angular projects.
 
 ## :computer: Get Started:
 
@@ -28,14 +28,12 @@ Make sure you have the following components installed:
 
 ```
 git clone <https://github.com/claudiaglez/BootcampCapgemini.git>
-
 ```
 
 - Navigate to the directory:
 
 ```
 cd BootcampCapgemini
-
 ```
 
 Project Configuration
@@ -46,14 +44,12 @@ Backend (catalogo/)
 
 ```
 cd catalogo
-
 ```
 
 - Build and run the application:
 
 ```
 mvn spring-boot:run
-
 ```
 
 The application will be available in: [http://localhost:8080](http://localhost:8080/).
@@ -64,21 +60,18 @@ Frontend (demo-ng/)
 
 ```
 cd demo-ng
-
 ```
 
 - Install dependencies
 
 ```
 npm install
-
 ```
 
 Run the application:
 
 ```
 ng serve
-
 ```
 
 The application will be available in: [http://localhost:4200](http://localhost:4200/).
@@ -143,7 +136,6 @@ The API documentation is available on Swagger. To access it, follow these steps:
     ```bash
     cd catalog
     mvn spring-boot:run
-    
     ```
     
 
