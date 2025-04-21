@@ -76,22 +76,6 @@ ng serve
 
 The application will be available in: [http://localhost:4200](http://localhost:4200/).
 
-## 🧪 Laboratories and Demonstration Projects
-
-demo/: Demonstration project for [describe purpose].
-
-demo-maven/: Project demonstrating the use of Maven for [describe purpose].
-
-demo-ng/: Angular project that exemplifies [describe purpose].
-
-GildedRose/: Refactoring exercise based on the ‘Gilded Rose’ kata.
-
-project-batch/: Implementation of batch processes using Spring Batch.
-
-ws-soap/: Creating a SOAP web service with Spring.
-
-ws-soap-consume/: Client consuming a SOAP web service.
-
 ## ⚙️ Technologies
 
 Java 21
@@ -106,7 +90,9 @@ Angular
 
 Maven
 
-Node.js y npm
+Node.js 
+
+npm
 
 ## 📄 API Documentation
 
