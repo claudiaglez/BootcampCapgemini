@@ -121,14 +121,10 @@ The API documentation is available on Swagger. To access it, follow these steps:
         
         (Set `container_name`, `password` and `base_name` according to the configuration provided).
         
-        ```
-        
     - If a `podman-compose.yml` file is used, the container can be raised with:
         
         ```bash
         podman-compose up -d
-        ```
-        
         ```
         
 2. Make sure the backend is running:
